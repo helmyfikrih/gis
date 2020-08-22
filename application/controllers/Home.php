@@ -11,7 +11,10 @@ class Home extends CI_Controller
 		$this->css_path = array();
 		$this->js_path = array();
 
-		$this->menu_body     = $this->menu->getmenu(1, 'admin');
+		$this->menu_body = $this->menu->getmenu(1, 'admin');
+		if (!$this->session->userdata('logged_in')) {
+			redirect('auth/login');
+		}
 	}
 
 	public function index()
