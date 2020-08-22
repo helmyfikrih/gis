@@ -10,6 +10,8 @@ class Home extends CI_Controller
 		$this->plugins_path_js = array();
 		$this->css_path = array();
 		$this->js_path = array();
+
+		$this->menu_body     = $this->menu->getmenu(1, 'admin');
 	}
 
 	public function index()
@@ -19,6 +21,7 @@ class Home extends CI_Controller
 			'plugins_path_css' => $this->plugins_path_css,
 			'plugins_path_js' => $this->plugins_path_js,
 			'js_path' => $this->js_path,
+			'menu_body' => $this->menu_body,
 		);
 		$this->template->load('default', 'home/index', $data);
 	}
