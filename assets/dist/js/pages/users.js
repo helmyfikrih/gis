@@ -161,7 +161,7 @@ $(function () {
 });
 function addNew() {
 	$("#form").trigger("reset");
-	$("#modalHeaderText").html("Add New Role");
+	$(".modalHeaderText").html("Add New Role");
 	showModal();
 	$("#user_password").attr("required", true);
 }
@@ -183,8 +183,86 @@ function ngeklik() {
 	$("#imenu").html(e.toString());
 }
 
+function view(e) {
+	$("#modalView").modal("show");
+	jQuery.ajax({
+		type: "post",
+		data: {
+			id: e,
+		},
+		url: `${base_url}users/getOne`,
+		dataType: "json",
+		success: function (e) {
+			$(".modalHeaderText").html(`Detail User ${e[0].ud_full_name}`);
+			$("#body-view").html(
+				`  <div class="table-responsive">
+					<table class="table">
+						<tbody>
+							<tr>
+								<th style="width:50%">Full Name :</th>
+								<td>${e[0].ud_full_name}</td>
+							</tr>
+							<tr>
+								<th>Username:</th>
+								<td>${e[0].user_username}</td>
+							</tr>
+							<tr>
+								<th>E-mail:</th>
+								<td>${e[0].user_email}</td>
+							</tr>
+							<tr>
+								<th>Phone Number:</th>
+								<td>${e[0].ud_phone}</td>
+							</tr>
+							<tr>
+								<th>Birth Date:</th>
+								<td>${e[0].ud_birth_date}</td>
+							</tr>
+							<tr>
+								<th>Birth Place:</th>
+								<td>${e[0].ud_birth_place}</td>
+							</tr>
+							<tr>
+								<th>Gender:</th>
+								<td>${
+									e[0].ud_gender == "P"
+										? "Perempuan"
+										: e[0].ud_gender == "L"
+										? "Laki-Laki"
+										: ""
+								}</td>
+							</tr>
+							<tr>
+								<th>Address:</th>
+								<td>${e[0].ud_address}</td>
+							</tr>
+							<tr>
+								<th>Role:</th>
+								<td>${e[0].role_name}</td>
+							</tr>
+							<tr>
+								<th>Status:</th>
+								<td>${
+									e[0].user_status == 1
+										? "Active"
+										: e[0].user_status == 0
+										? "Inactive"
+										: ""
+								}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>`
+			);
+		},
+		error: function (xhr, status, error) {
+			Swal.fire({ title: "Error", text: error, icon: "error" });
+		},
+	});
+}
+
 function edit(e) {
-	$("#modalHeaderText").html("Edit User");
+	$(".modalHeaderText").html("Edit User");
 	showModal();
 	jQuery.ajax({
 		type: "post",
@@ -210,6 +288,9 @@ function edit(e) {
 			$("#user_birth_date").datepicker("update", e[0].ud_birth_date);
 			jQuery("#user_address").val(e[0].ud_address);
 			jQuery("#user_gender").val(e[0].ud_gender).trigger("change");
+		},
+		error: function (xhr, status, error) {
+			Swal.fire({ title: "Error", text: error, icon: "error" });
 		},
 	});
 }

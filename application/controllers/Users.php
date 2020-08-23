@@ -89,6 +89,7 @@ class Users extends CI_Controller
             $row = array();
             $btnEdit = "";
             $btnDelete = "";
+            $btnView = "";
 
             if (array_intersect(array($this->data['menu_allow'] . '_update'), $this->data['user_allow_menu'])) {
                 $btnEdit = '<span><button type="button" class="btn btn-outline-info btn-sm" onclick="edit(\'' . ($field->user_id) . '\')"><i class="fa fa-edit"></i> Edit</button></span>';
@@ -96,8 +97,8 @@ class Users extends CI_Controller
             if (array_intersect(array($this->data['menu_allow'] . '_delete'), $this->data['user_allow_menu'])) {
                 // $btnDelete = '<span><button type="button" class="btn btn-outline-danger btn-sm" onclick="delete(\'' . ($field->user_id) . '\')"><i class="fa fa-trash"></i> Delete</button></span>';
             }
-
-            $btn = " $btnEdit $btnDelete";
+            $btnView = '<span><button type="button" class="btn btn-outline-success btn-sm" onclick="view(\'' . ($field->user_id) . '\')"><i class="fa fa-eye"></i> View</button></span>';
+            $btn = " $btnEdit $btnDelete $btnView ";
             $row[] = $btn;
             $row[] = $field->user_id;
             $row[] = $field->user_username;

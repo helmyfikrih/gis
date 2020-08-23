@@ -114,10 +114,11 @@ class Users_model extends CI_Model
 
     function getOne($id)
     {
-        $this->db->select("u.*,ud.*, u.user_id as uid");
+        $this->db->select("u.user_username, u.user_email,u.role_id, u.user_status,r.role_name,ud.*, u.user_id as uid");
         $this->db->where('u.user_id', $id);
         $this->db->from('gis_user u');
         $this->db->join('gis_user_detail ud', 'ud.user_id=u.user_id', 'left');
+        $this->db->join('gis_user_role r', 'r.role_id=u.role_id', 'left');
         return $this->db->get()->result_array();
     }
 
