@@ -61,7 +61,11 @@ class User_role extends CI_Controller
             'menu_allow' => $this->data['menu_allow'],
             'user_allow_menu' => $this->data['user_allow_menu'],
         );
-        $this->template->load('default', 'user_role/index', $data);
+        if ((!in_array($this->data['menu_allow'] . '_read', $this->data['user_allow_menu']))) {
+            $this->template->load('default', 'template/403', $data);
+        } else {
+            $this->template->load('default', 'user_role/index', $data);
+        }
     }
 
     function getmenulist()
