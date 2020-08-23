@@ -137,7 +137,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Tanggal Lahir</label>
-                                    <input type="date" format-date="dd-mm-yyyy" name="user_birth_date" id="user_birth_date" placeholder="dd-mm-yyyy" class="form-control datepicker date-form" />
+                                    <input type="text" format-date="dd-mm-yyyy" name="user_birth_date" id="user_birth_date" placeholder="dd-mm-yyyy" class="form-control datepicker date-form" />
                                 </div>
                             </div>
                             <div class="col-sm-6">

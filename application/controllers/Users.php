@@ -56,6 +56,7 @@ class Users extends CI_Controller
         );
         $this->js_path = array(
             'pages/users.js',
+            'helper/date.js',
 
         );
         $data = array(

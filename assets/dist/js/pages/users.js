@@ -1,6 +1,6 @@
 $(function () {
 	$("#user_birth_date").datepicker({
-		format: "yyyy-mm-dd",
+		format: "dd-mm-yyyy",
 		autoclose: true,
 	});
 	$(".select2bs4").select2({
@@ -216,7 +216,7 @@ function view(e) {
 							</tr>
 							<tr>
 								<th>Birth Date:</th>
-								<td>${e[0].ud_birth_date}</td>
+								<td>${formatDate("dd-mm-yyyy", e[0].ud_birth_date)}</td>
 							</tr>
 							<tr>
 								<th>Birth Place:</th>
@@ -285,7 +285,10 @@ function edit(e) {
 			jQuery("#user_full_name").val(e[0].ud_full_name);
 			jQuery("#user_phone").val(e[0].ud_phone);
 			jQuery("#user_birth_place").val(e[0].ud_birth_place);
-			$("#user_birth_date").datepicker("update", e[0].ud_birth_date);
+			$("#user_birth_date").datepicker(
+				"update",
+				formatDate("dd-mm-yyyy", e[0].ud_birth_date)
+			);
 			jQuery("#user_address").val(e[0].ud_address);
 			jQuery("#user_gender").val(e[0].ud_gender).trigger("change");
 		},
