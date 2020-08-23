@@ -124,7 +124,7 @@ $(function () {
 
 function addNew() {
 	$("#form").trigger("reset");
-	$("#modalHeaderText").html("Add New");
+	$("#modalHeaderText").html("Add New Role");
 	showModal();
 }
 
@@ -145,6 +145,7 @@ function ngeklik() {
 }
 
 function edit(e) {
+	$("#modalHeaderText").html("Edit Role");
 	showModal();
 	jQuery.ajax({
 		type: "post",
