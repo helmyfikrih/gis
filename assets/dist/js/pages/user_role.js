@@ -64,8 +64,8 @@ $(function () {
 							response = jQuery.parseJSON(JSON.stringify(data));
 							if (response.is_success === true) {
 								Swal.fire({
-									title: "Success",
-									text: response.message,
+									title: response.message,
+									// text: response.message,
 									icon: "success",
 								});
 								$("#form").trigger("reset");

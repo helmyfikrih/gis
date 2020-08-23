@@ -140,7 +140,7 @@ class User_role extends CI_Controller
                 exit;
             } else {
                 $update = $this->role->updatetRole($data, $cond);
-                $msg = $this->lang->line('role_success_edit');
+                $msg = "Berhasil Mengubah Role";
             }
         } else {
             if (!array_intersect(array($this->data['menu_allow'] . '_create'), $this->data['user_allow_menu'])) {
@@ -152,7 +152,7 @@ class User_role extends CI_Controller
                 exit;
             } else {
                 $insert = $this->role->insertRole($data);
-                $msg = $this->lang->line('role_success_create');
+                $msg = "Berhasil Membuat Role";
             }
         }
 
