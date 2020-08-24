@@ -33,8 +33,7 @@
                             <h3 class="profile-username text-center"><?= $user_session->ud_full_name ?></h3>
 
                             <p class="text-muted text-center"><?= $user_session->role_name ?></p>
-
-
+                            <button type="button" onclick="changeAvatar()" class="btn btn-primary btn-block"><b>Change Avatar</b></button>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -225,5 +224,40 @@
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section>
+    <!-- Modals -->
+    <div class="modal fade" id="modalChangeAvatar" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Change Avatar</span></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <form role="form" id="form" action="<?= base_url('users/save') ?>">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label>Select Image</label>
+                                    <input type="file" name="upload_image" id="upload_image" accept="image/*" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="image_crop" style="width:350px; margin-top:30px;"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="saveAvatar" class="btn btn-primary">Crop & Save</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
     <!-- /.content -->
 </div>

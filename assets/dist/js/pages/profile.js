@@ -1,4 +1,55 @@
 $(function () {
+	$("#image_crop").hide("slow");
+	// Image Croper
+	$("#upload_image").on("change", function () {
+		$("#image_crop").show("slow");
+		var reader = new FileReader();
+		reader.onload = function (event) {
+			$image_crop
+				.croppie("bind", {
+					url: event.target.result,
+				})
+				.then(function () {});
+		};
+		reader.readAsDataURL(this.files[0]);
+	});
+	$image_crop = $("#image_crop").croppie({
+		enableExif: true,
+		viewport: {
+			width: 200,
+			height: 200,
+			type: "square", //circle
+		},
+		boundary: {
+			width: 300,
+			height: 300,
+		},
+	});
+	$("#saveAvatar").click(function (event) {
+		$image_crop
+			.croppie("result", {
+				type: "canvas",
+				size: "viewport",
+			})
+			.then(function (response) {
+				$.ajax({
+					url: `${base_url}profile/saveChangeAvatar`,
+					type: "POST",
+					data: { image: response },
+					dataType: "json",
+					success: function (data) {
+						response = jQuery.parseJSON(JSON.stringify(data));
+						Swal.fire({
+							title: response.message,
+							// text: response.message,
+							icon: "success",
+						}).then((result) => {
+							location.reload();
+						});
+					},
+				});
+			});
+	});
 	$("#birth_date").datepicker({
 		format: "dd-mm-yyyy",
 		autoclose: true,
@@ -131,3 +182,7 @@ $(function () {
 		},
 	});
 });
+
+function changeAvatar() {
+	$("#modalChangeAvatar").modal("show");
+}

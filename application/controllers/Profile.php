@@ -40,6 +40,7 @@ class Profile extends CI_Controller
             'datepicker/css/bootstrap-datepicker.min.css',
             'select2/css/select2.min.css',
             'select2-bootstrap4-theme/select2-bootstrap4.min.css',
+            'croppie/css/croppie.css',
         );
         $this->plugins_path_js = array(
             'sweetalert2/sweetalert2.min.js',
@@ -48,6 +49,7 @@ class Profile extends CI_Controller
             'moment/moment.min.js',
             'datepicker/js/bootstrap-datepicker.min.js',
             'select2/js/select2.full.min.js',
+            'croppie/js/croppie.min.js',
         );
         $this->js_path = array(
             'pages/profile.js',
@@ -182,6 +184,48 @@ class Profile extends CI_Controller
             $res = array(
                 'is_success' => true,
                 'message' => "Berhasil Update Profile",
+            );
+        }
+        echo json_encode($res);
+    }
+
+    function saveChangeAvatar()
+    {
+        $img = $_POST["image"];
+        $image_array_1 = explode(";", $img);
+
+        $image_array_2 = explode(",", $image_array_1[1]);
+        $extension = explode('/', mime_content_type($img))[1];
+        $path = "assets/uploads/images/avatar/";
+        $img = base64_decode($image_array_2[1]);
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        $imageName = $this->sessionData->user_id . '_' . $this->sessionData->user_username . '.' . $extension;
+        $imagePath = $path . $imageName;
+        if (file_put_contents($imagePath, $img)) {
+            $data['data_user_detail'] = array(
+                "ud_img_name" =>  $imageName,
+                "ud_img_url" =>  base_url() . $imagePath,
+            );
+            $data['cond'] = array(
+                'user_id' => $this->sessionData->user_id,
+            );
+            if ($this->profile->updateUserDetail($data)) {
+                $res = array(
+                    'is_success' => true,
+                    'message' => "Berhasil Ubah Avatar",
+                );
+            } else {
+                $res = array(
+                    'is_success' => false,
+                    'message' =>   $this->db->error()
+                );
+            }
+        } else {
+            $res = array(
+                'is_success' => false,
+                'message' =>   "Gagal Ubah Avatar"
             );
         }
         echo json_encode($res);
