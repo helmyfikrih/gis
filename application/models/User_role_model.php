@@ -106,9 +106,9 @@ class User_role_model extends CI_Model
         return $this->db->get('gis_user_role')->result_array();
     }
 
-    function deleteData($id)
+    function deleteData($data)
     {
-        $this->db->where('role_id', $id);
+        $this->db->where($data['cond']);
         return $this->db->delete('gis_user_role');
     }
 }
