@@ -6,6 +6,7 @@
 <script src="<?= base_url() ?>assets/plugins/colorbox/js/jquery.colorbox-min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url() ?>assets/dist/js/adminlte.min.js"></script>
+<script src="<?= base_url() ?>assets/dist/js/main.js"></script>
 <script>
     var base_url = "<?= base_url() ?>";
 </script>
@@ -21,16 +22,3 @@ foreach ($js_path as $js) { ?>
 <?php
 }
 ?>
-
-<script>
-    jQuery(function($) {
-        $(".profile-img-clickable").colorbox({
-            rel: 'profile-img-clickable',
-            transition: "fade"
-        });
-        $(".profile-img-clickable-sidbear").colorbox({
-            rel: 'profile-img-clickable-sidbear',
-            transition: "fade"
-        });
-    })
-</script>

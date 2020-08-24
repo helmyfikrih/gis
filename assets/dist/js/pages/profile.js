@@ -1,4 +1,8 @@
 $(function () {
+	$(".profile-img-clickable").colorbox({
+		rel: "profile-img-clickable",
+		transition: "fade",
+	});
 	$("#image_crop").hide("slow");
 	// Image Croper
 	$("#upload_image").on("change", function () {
