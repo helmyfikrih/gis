@@ -2,6 +2,8 @@ $(function () {
 	$(".profile-img-clickable").colorbox({
 		rel: "profile-img-clickable",
 		transition: "fade",
+		maxWidth: "100%",
+		maxHeight: "100%",
 	});
 	$("#image_crop").hide("slow");
 	// Image Croper

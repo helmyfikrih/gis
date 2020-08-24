@@ -98,7 +98,14 @@ class User_role extends CI_Controller
                 $btnDelete = '<span><button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteData(\'' . ($field->role_id) . '\',\'' . ($field->role_code) . '\')"><i class="fa fa-trash"></i> Delete</button></span>';
             }
 
-            $btn = " $btnEdit $btnDelete";
+            $btn = " <div class='d-none d-sm-block d-sm-none d-md-block'>$btnEdit $btnDelete</div>";
+            $btn .= "   <div class='input-group-prepend d-md-none d-lg-block d-lg-none d-xl-block'>
+                          <button type='button' class='btn btn-default dropdown-toggle dropdown-icon' data-toggle='dropdown'>
+                          </button>
+                          <div class='dropdown-menu'>
+                            <div class='dropdown-item' href='javasctipy:;'>$btnEdit $btnDelete</div>
+                          </div>
+                        </div>";
             $row[] = $btn;
             $row[] = $field->role_id;
             $row[] = $field->role_code;

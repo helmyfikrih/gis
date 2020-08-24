@@ -187,10 +187,8 @@
                     </button>
                 </div>
                 <div class="modal-body" id="modalBody">
-                    <div class="col-md-6 col-sm-12">
-                        <div id="body-view">
+                    <div id="body-view">
 
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">

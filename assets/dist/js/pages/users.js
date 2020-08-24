@@ -195,8 +195,12 @@ function view(e) {
 		dataType: "json",
 		success: function (e) {
 			$(".modalHeaderText").html(`Detail User ${e[0].ud_full_name}`);
+			var d = new Date();
+			var t = d.getTime();
 			$("#body-view").html(
-				`  <div class="table-responsive">
+				`<div class="row">
+				<div class="col-md-6 col-sm-12">
+					<div class="table-responsive">
 					<table class="table">
 						<tbody>
 							<tr>
@@ -253,8 +257,33 @@ function view(e) {
 							</tr>
 						</tbody>
 					</table>
-				</div>`
+				</div>
+				 </div>
+				 <div class="col-md-6 col-sm-12">
+				 <div class="text-center">
+				 <a href="${
+						e[0].ud_img_url
+							? e[0].ud_img_url
+							: base_url + "assets/dist/img/avatar04.png"
+					}?x=${t}" class="profile-img-clickable">
+					<img class="rounded img-fluid" src="${
+						e[0].ud_img_url
+							? e[0].ud_img_url
+							: base_url + "assets/dist/img/avatar04.png"
+					}?x=${t}" alt="Photo">	
+				 </a>
+				 </div>
+				 </div>
+				 </div>
+				`
 			);
+			$(".profile-img-clickable").colorbox({
+				rel: "profile-img-clickable",
+				transition: "fade",
+				scalePhotos: true,
+				maxWidth: "100%",
+				maxHeight: "100%",
+			});
 		},
 		error: function (xhr, status, error) {
 			Swal.fire({ title: "Error", text: error, icon: "error" });

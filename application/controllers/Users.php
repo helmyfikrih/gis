@@ -100,7 +100,14 @@ class Users extends CI_Controller
                 $btnDelete = '<span><button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteData(\'' . ($field->user_id) . '\', \'' . ($field->user_username) . '\')"><i class="fa fa-trash"></i> Delete</button></span>';
             }
             $btnView = '<span><button type="button" class="btn btn-outline-success btn-sm" onclick="view(\'' . ($field->user_id) . '\')"><i class="fa fa-eye"></i> View</button></span>';
-            $btn = " $btnEdit $btnView $btnDelete";
+            $btn = " <div class='d-none d-sm-block d-sm-none d-md-block'>$btnEdit $btnView $btnDelete</div>";
+            $btn .= "   <div class='input-group-prepend d-md-none d-lg-block d-lg-none d-xl-block'>
+                          <button type='button' class='btn btn-default dropdown-toggle dropdown-icon' data-toggle='dropdown'>
+                          </button>
+                          <div class='dropdown-menu'>
+                            <div class='dropdown-item' href='javasctipy:;'>$btnEdit $btnView $btnDelete</div>
+                          </div>
+                        </div>";
             $row[] = $btn;
             $row[] = $field->user_id;
             $row[] = $field->user_username;
