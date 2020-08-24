@@ -15,6 +15,7 @@ class User_role extends CI_Controller
         if (!$this->session->userdata('logged_in')) {
             redirect('auth/login');
         }
+        $this->sessionData = getSessionData();
         // Model
         $this->load->model('user_role_model', 'role');
         // Menu Access Role
@@ -52,6 +53,7 @@ class User_role extends CI_Controller
 
         );
         $data = array(
+            'user_session' => $this->sessionData,
             'plugins_path_css' => $this->plugins_path_css,
             'plugins_path_js' => $this->plugins_path_js,
             'css_path' => $this->css_path,

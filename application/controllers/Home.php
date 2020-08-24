@@ -15,6 +15,7 @@ class Home extends CI_Controller
 		if (!$this->session->userdata('logged_in')) {
 			redirect('auth/login');
 		}
+		$this->sessionData = getSessionData();
 		// Menu Access Role
 		$urlname    = strtolower($this->router->fetch_class());
 		$menu_id       = $this->menu->idMenu($urlname);
@@ -32,6 +33,7 @@ class Home extends CI_Controller
 	public function index()
 	{
 		$data = array(
+			'user_session' => $this->sessionData,
 			'css_path' => $this->css_path,
 			'plugins_path_css' => $this->plugins_path_css,
 			'plugins_path_js' => $this->plugins_path_js,
