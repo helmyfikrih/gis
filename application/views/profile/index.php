@@ -27,8 +27,8 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <a class="profile-img-clickable" href="<?= $user_session->ud_img_url ? $user_session->ud_img_url : base_url() . "assets/dist/img/avatar04.png"; ?>">
-                                    <img class="profile-user-img img-fluid img-circle" src="<?= $user_session->ud_img_url ? $user_session->ud_img_url : base_url() . "assets/dist/img/avatar04.png"; ?>" alt="<?= $user_session->ud_full_name ?>">
+                                <a class="profile-img-clickable" href="<?= $user_session->ud_img_url ? $user_session->ud_img_url : base_url() . "assets/dist/img/avatar04.png"; ?><?= "?x=" . time() ?>">
+                                    <img class="profile-user-img img-fluid img-circle" src="<?= $user_session->ud_img_url ? $user_session->ud_img_url : base_url() . "assets/dist/img/avatar04.png"; ?><?= "?x=" . time() ?>" alt="<?= $user_session->ud_full_name ?>">
                                 </a>
                             </div>
 
