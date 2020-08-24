@@ -69,7 +69,6 @@ $(function () {
 									icon: "success",
 								});
 								$("#form").trigger("reset");
-								$("#table_role").DataTable().ajax.reload(null, false);
 								hideModal();
 							} else {
 								Swal.fire({
@@ -78,9 +77,11 @@ $(function () {
 									icon: "warning",
 								});
 							}
+							$("#table_role").DataTable().ajax.reload(null, false);
 						},
 						error: function (xhr, status, error) {
 							Swal.fire({ title: "Error", text: error, icon: "error" });
+							$("#table_role").DataTable().ajax.reload(null, false);
 						},
 					});
 				}
@@ -172,3 +173,49 @@ function edit(e) {
 $("#form").on("reset", function (e) {
 	$("input:checkbox").removeAttr("checked");
 });
+
+function deleteData(rid, rcode) {
+	Swal.fire({
+		title: "Apakah Anda Yakin?",
+		text: "Data akan dihapus secara permanen dan tidak dapat dikembalikan.",
+		icon: "question",
+		showCancelButton: true,
+		confirmButtonColor: "#d33",
+		cancelButtonColor: "#3085d6",
+		confirmButtonText: "Yes",
+	}).then((result) => {
+		if (result.value) {
+			var myForm = $("#form")[0];
+			$.ajax({
+				url: `${base_url}user_role/delete`,
+				type: "POST",
+				data: {
+					rid: rid,
+					rcode: rcode,
+				},
+				dataType: "json",
+				success: function (data) {
+					response = jQuery.parseJSON(JSON.stringify(data));
+					if (response.is_success === true) {
+						Swal.fire({
+							title: response.message,
+							// text: response.message,
+							icon: "success",
+						});
+					} else {
+						Swal.fire({
+							title: "Warning",
+							text: response.message,
+							icon: "warning",
+						});
+					}
+					$("#table_role").DataTable().ajax.reload(null, false);
+				},
+				error: function (xhr, status, error) {
+					Swal.fire({ title: "Error", text: error, icon: "error" });
+					$("#table_role").DataTable().ajax.reload(null, false);
+				},
+			});
+		}
+	});
+}

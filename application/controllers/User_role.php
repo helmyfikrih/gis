@@ -90,10 +90,10 @@ class User_role extends CI_Controller
             $btnDelete = "";
 
             if (array_intersect(array($this->data['menu_allow'] . '_update'), $this->data['user_allow_menu'])) {
-                $btnEdit = '<span><button type="button" class="btn btn-outline-info btn-sm" onclick="edit(\'' . ($field->role_id) . '\')" title="' . $this->lang->line('role_edit') . '"><i class="fa fa-edit"></i> Edit</button></span>';
+                $btnEdit = '<span><button type="button" class="btn btn-outline-info btn-sm" onclick="edit(\'' . ($field->role_id) . '\')"><i class="fa fa-edit"></i> Edit</button></span>';
             }
             if (array_intersect(array($this->data['menu_allow'] . '_delete'), $this->data['user_allow_menu'])) {
-                $btnDelete = '<span><button type="button" class="btn btn-outline-info btn-sm" onclick="edit(\'' . ($field->role_id) . '\')" title="' . $this->lang->line('role_edit') . '"><i class="fa fa-edit"></i> Edit</button></span>';
+                $btnDelete = '<span><button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteData(\'' . ($field->role_id) . '\',\'' . ($field->role_code) . '\')"><i class="fa fa-trash"></i> Delete</button></span>';
             }
 
             $btn = " $btnEdit $btnDelete";
@@ -181,5 +181,40 @@ class User_role extends CI_Controller
         $roleId = $this->input->post('id');
         $data = $this->role->getOne($roleId);
         echo json_encode($data);
+    }
+
+    function delete()
+    {
+        if (!array_intersect(array($this->data['menu_allow'] . '_delete'), $this->data['user_allow_menu'])) {
+            $res = array(
+                'is_success' => false,
+                'message' => "User Tidak Memiliki Hak Akses",
+            );
+            echo json_encode($res);
+            exit;
+        }
+
+        $role_id = $this->input->post('rid');
+        $role_code = $this->input->post('rcode');
+
+        $data['cond'] = array(
+            "role_id" => $role_id,
+            "role_code" => $role_code,
+        );
+
+        if ($this->role->deleteData($data)) {
+            $res = array(
+                'is_success' => true,
+                'message' => "Berhasil Menghapus Role",
+            );
+        } else {
+            $err = $this->db->error();
+            $msg = $err["code"] . "-" . $err["message"];
+            $res = array(
+                'is_success' => false,
+                'message' =>  $err
+            );
+        }
+        echo json_encode($res);
     }
 }

@@ -72,14 +72,14 @@
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Role Code</label>
-                                    <input type="text" name="role_id" id="role_id" class="form-control" placeholder="Enter ..." hidden>
-                                    <input type="text" name="role_code" id="role_codeOld" class="form-control" placeholder="Enter ..." hidden>
-                                    <input type="text" name="role_code" id="role_code" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="role_id" id="role_id" class="form-control" placeholder="Role Code..." hidden>
+                                    <input type="text" name="role_code" id="role_codeOld" class="form-control" placeholder="Role Code..." hidden>
+                                    <input type="text" name="role_code" id="role_code" class="form-control" placeholder="Role Code...">
                                 </div>
                                 <div class="form-group">
                                     <label>Role Name</label>
-                                    <input type="text" name="role_name" id="role_nameOld" class="form-control" placeholder="Enter ..." hidden>
-                                    <input type="text" name="role_name" id="role_name" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="role_name" id="role_nameOld" class="form-control" placeholder="Role Name..." hidden>
+                                    <input type="text" name="role_name" id="role_name" class="form-control" placeholder="Role Name...">
                                 </div>
                             </div>
                             <div class="col-sm-6">
