@@ -16,13 +16,13 @@ $(function () {
 	$image_crop = $("#image_crop").croppie({
 		enableExif: true,
 		viewport: {
-			width: 200,
-			height: 200,
+			width: 400,
+			height: 400,
 			type: "square", //circle
 		},
 		boundary: {
-			width: 300,
-			height: 300,
+			width: 500,
+			height: 500,
 		},
 	});
 	$("#saveAvatar").click(function (event) {

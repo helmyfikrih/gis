@@ -27,7 +27,9 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="<?= $user_session->ud_img_url ? $user_session->ud_img_url : base_url() . "assets/dist/img/avatar04.png"; ?>" alt="User profile picture">
+                                <a class="profile-img-clickable" href="<?= $user_session->ud_img_url ? $user_session->ud_img_url : base_url() . "assets/dist/img/avatar04.png"; ?>">
+                                    <img class="profile-user-img img-fluid img-circle" src="<?= $user_session->ud_img_url ? $user_session->ud_img_url : base_url() . "assets/dist/img/avatar04.png"; ?>" alt="<?= $user_session->ud_full_name ?>">
+                                </a>
                             </div>
 
                             <h3 class="profile-username text-center"><?= $user_session->ud_full_name ?></h3>
@@ -226,7 +228,7 @@
     </section>
     <!-- Modals -->
     <div class="modal fade" id="modalChangeAvatar" data-backdrop="static" data-keyboard="false" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-dialog modal-dialog-scrollable modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Change Avatar</span></h4>
