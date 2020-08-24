@@ -54,7 +54,52 @@
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="active tab-pane" id="detail">
-
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th style="width:50%">Full Name :</th>
+                                                    <td><?= esc($user_session->ud_full_name) ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Username:</th>
+                                                    <td><?= esc($user_session->user_username) ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>E-mail:</th>
+                                                    <td><?= esc($user_session->user_email) ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Phone Number:</th>
+                                                    <td><?= esc($user_session->ud_phone) ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Birth Date:</th>
+                                                    <td><?= date("d-m-Y", strtotime($user_session->ud_birth_date)) ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Birth Place:</th>
+                                                    <td><?= esc($user_session->ud_birth_place) ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Gender:</th>
+                                                    <td><?= getUserGenderString($user_session->ud_gender) ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Address:</th>
+                                                    <td><?= esc($user_session->ud_address) ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Role:</th>
+                                                    <td><?= esc($user_session->role_name) ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Status:</th>
+                                                    <td><?= esc(getUserStatusString($user_session->user_status)) ?></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                                 <div class="tab-pane" id="settings">
                                     <div class="card card-primary card-outline card-tabs">
@@ -74,47 +119,56 @@
                                                     <form class="form-horizontal" id="form-profile" action="<?= base_url('profile/saveProfile') ?>">
                                                         <div class="form-group row">
                                                             <label for="inputName" class="col-sm-2 col-form-label">Username</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="inputName" placeholder="Name">
+                                                            <div class="col-sm-10 form-group-h">
+                                                                <input type="text" class="form-control" id="username_old" name="username_old" value="<?= esc($user_session->user_username) ?>" placeholder="Username" readonly hidden>
+                                                                <input type="text" class="form-control" id="username" name="username" value="<?= esc($user_session->user_username) ?>" placeholder="Username">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label for="inputEmail" class="col-sm-2 col-form-label">E-mail</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                                            <div class="col-sm-10 form-group-h">
+                                                                <input type="email" class="form-control" id="email_old" name="email_old" value="<?= esc($user_session->user_email) ?>" placeholder="Email" hidden readonly>
+                                                                <input type="email" class="form-control" id="email" name="email" value="<?= esc($user_session->user_email) ?>" placeholder="Email">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label for="inputEmail" class="col-sm-2 col-form-label">Nomor Telepon</label>
+                                                            <div class="col-sm-10 form-group-h">
+                                                                <input type="text" class="form-control" id="phone_number_old" name="phone_number_old" value="<?= esc($user_session->ud_phone) ?>" placeholder="Nomor Telepon" hidden readonly>
+                                                                <input type="text" class="form-control" id="phone_number" name="phone_number" value="<?= esc($user_session->ud_phone) ?>" placeholder="Nomor Telepon">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label for="inputName2" class="col-sm-2 col-form-label">Nama Lengkap</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="inputName2" placeholder="Name">
+                                                            <div class="col-sm-10 form-group-h">
+                                                                <input type="text" class="form-control" id="full_name" name="full_name" value="<?= esc($user_session->ud_full_name) ?>" placeholder="Nama Lengkap">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label for="inputSkills" class="col-sm-2 col-form-label">Tempat Lahir</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                                                            <div class="col-sm-10 form-group-h">
+                                                                <input type="text" class="form-control" id="birth_place" name="birth_place" value="<?= esc($user_session->ud_birth_place) ?>" placeholder="Tempat Lahir">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label for="inputSkills" class="col-sm-2 col-form-label">Tanggal Lahir</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                                                            <div class="col-sm-10 form-group-h">
+                                                                <input type="text" class="form-control" id="birth_date" name="birth_date" value="<?= esc(date("d-m-Y", strtotime($user_session->ud_birth_date))) ?>" placeholder="Tanggal Lahir">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label for="inputExperience" class="col-sm-2 col-form-label">Alamat</label>
-                                                            <div class="col-sm-10">
-                                                                <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                                                            <div class="col-sm-10 form-group-h">
+                                                                <textarea class="form-control" id="address" name="address" placeholder="Alamat"><?= esc($user_session->ud_address) ?> </textarea>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label for="inputExperience" class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                                                            <div class="col-sm-10">
+                                                            <div class="col-sm-10 form-group-h">
                                                                 <select name="user_gender" id="user_gender" class="form-control select2bs4 select-form" style="width: 100%;">
                                                                     <option></option>
-                                                                    <option value="L">Laki-Laki</option>
-                                                                    <option value="P">Perempuan</option>
+                                                                    <option value="L" <?= $user_session->ud_gender == 'L' ? 'selected' : '' ?>>Laki-Laki</option>
+                                                                    <option value="P" <?= $user_session->ud_gender == 'P' ? 'selected' : '' ?>>Perempuan</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -131,20 +185,20 @@
                                                     <form class="form-horizontal" id="form-change-password" action="<?= base_url('profile/saveChangePassword') ?>">
                                                         <div class="form-group row">
                                                             <label for="inputName" class="col-sm-2 col-form-label">Password Sebelumnya</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="password" class="form-control" id="password-old" placeholder="Password Sebelumnya">
+                                                            <div class="col-sm-10 form-group-h">
+                                                                <input type="password" class="form-control" id="password_old" name="password_old" placeholder="Password Sebelumnya">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label for="inputEmail" class="col-sm-2 col-form-label">Password Baru</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="password" class="form-control" id="password" placeholder="Password Baru">
+                                                            <div class="col-sm-10 form-group-h">
+                                                                <input type="password" class="form-control" id="password" name="password" placeholder="Password Baru">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label for="inputName2" class="col-sm-2 col-form-label">Ulangi Password Baru</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="password" class="form-control" id="password-confirm" placeholder="Ulangi Password Baru">
+                                                            <div class="col-sm-10 form-group-h">
+                                                                <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Ulangi Password Baru">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
