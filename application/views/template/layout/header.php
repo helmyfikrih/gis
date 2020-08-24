@@ -10,6 +10,8 @@
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/fontawesome-free/css/all.min.css">
+    <!-- ColorBox -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/colorbox/css/colorbox.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/adminlte.min.css">
     <?php
