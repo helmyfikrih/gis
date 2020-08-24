@@ -122,9 +122,9 @@ class Users_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    function deleteData($id)
+    function deleteData($data)
     {
-        $this->db->where('user_id', $id);
+        $this->db->where($data['cond']);
         return $this->db->delete('gis_user');
     }
 }

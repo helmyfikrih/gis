@@ -78,7 +78,6 @@ $(function () {
 									icon: "success",
 								});
 								$("#form").trigger("reset");
-								$("#datatables").DataTable().ajax.reload(null, false);
 								hideModal();
 							} else {
 								Swal.fire({
@@ -87,9 +86,11 @@ $(function () {
 									icon: "warning",
 								});
 							}
+							$("#datatables").DataTable().ajax.reload(null, false);
 						},
 						error: function (xhr, status, error) {
 							Swal.fire({ title: "Error", text: error, icon: "error" });
+							$("#datatables").DataTable().ajax.reload(null, false);
 						},
 					});
 				}
@@ -298,6 +299,52 @@ function edit(e) {
 	});
 }
 
+function deleteData(uid, uname) {
+	Swal.fire({
+		title: "Apakah Anda Yakin?",
+		text: "Data akan dihapus secara permanen dan tidak dapat dikembalikan.",
+		icon: "question",
+		showCancelButton: true,
+		confirmButtonColor: "#d33",
+		cancelButtonColor: "#3085d6",
+		confirmButtonText: "Yes",
+	}).then((result) => {
+		if (result.value) {
+			var myForm = $("#form")[0];
+			$.ajax({
+				url: `${base_url}users/delete`,
+				type: "POST",
+				data: {
+					uid: uid,
+					uname: uname,
+				},
+				dataType: "json",
+				success: function (data) {
+					response = jQuery.parseJSON(JSON.stringify(data));
+					if (response.is_success === true) {
+						Swal.fire({
+							title: response.message,
+							// text: response.message,
+							icon: "success",
+						});
+					} else {
+						Swal.fire({
+							title: "Warning",
+							text: response.message,
+							icon: "warning",
+						});
+					}
+					$("#datatables").DataTable().ajax.reload(null, false);
+				},
+				error: function (xhr, status, error) {
+					Swal.fire({ title: "Error", text: error, icon: "error" });
+					$("#datatables").DataTable().ajax.reload(null, false);
+				},
+			});
+		}
+	});
+}
+
 $("#form").on("reset", function (e) {
 	$("#user_birth_date").datepicker("update", "");
 	$(".select2bs4").val("").trigger("change");
@@ -307,9 +354,15 @@ $("#form").on("reset", function (e) {
 // Vorm Validation
 $(".select-form").on("change", function (e) {
 	// Do something
-	$("#form").valid();
+	var is_invalid = $(".is-invalid");
+	if (is_invalid.hasClass("is-invalid")) {
+		$("#form").valid();
+	}
 });
 $(".date-form").on("change", function (e) {
 	// Do something
-	$("#form").valid();
+	var is_invalid = $(".is-invalid");
+	if (is_invalid.hasClass("is-invalid")) {
+		$("#form").valid();
+	}
 });
