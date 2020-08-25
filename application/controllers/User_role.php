@@ -99,7 +99,7 @@ class User_role extends CI_Controller
             }
 
             $btn = " <div class='d-none d-sm-block d-sm-none d-md-block'>$btnEdit $btnDelete</div>";
-            $btn .= "   <div class='input-group-prepend d-md-none d-lg-block d-lg-none d-xl-block'>
+            $btn .= "   <div class='input-group-prepend d-md-none d-lg-none d-xl-none'>
                           <button type='button' class='btn btn-default dropdown-toggle dropdown-icon' data-toggle='dropdown'>
                           </button>
                           <div class='dropdown-menu'>
