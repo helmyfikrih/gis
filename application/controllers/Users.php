@@ -101,7 +101,7 @@ class Users extends CI_Controller
             }
             $btnView = '<span><button type="button" class="btn btn-outline-success btn-sm" onclick="view(\'' . ($field->user_id) . '\')"><i class="fa fa-eye"></i> View</button></span>';
             $btn = " <div class='d-none d-sm-block d-sm-none d-md-block'>$btnEdit $btnView $btnDelete</div>";
-            $btn .= "   <div class='input-group-prepend d-md-none d-lg-block d-lg-none d-xl-block'>
+            $btn .= "   <div class='input-group-prepend d-md-none d-lg-none d-xl-none '>
                           <button type='button' class='btn btn-default dropdown-toggle dropdown-icon' data-toggle='dropdown'>
                           </button>
                           <div class='dropdown-menu'>
