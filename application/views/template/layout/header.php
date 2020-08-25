@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>AdminLTE 3 | Starter</title>
-
+    <title><?= $setting->system_settings_app_name ?> | <?= $header_title ?></title>
+    <link id="logo_icon" rel="shortcut icon" type="image/png" href="<?= base_url() ?>assets/dist/img/<?= $setting->system_settings_app_logo_header ?>?x=<?= time() ?>" />
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/fontawesome-free/css/all.min.css">
     <!-- ColorBox -->

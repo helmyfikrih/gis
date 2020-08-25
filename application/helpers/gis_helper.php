@@ -7,7 +7,6 @@ if (!function_exists('esc')) {
     }
 }
 
-
 if (!function_exists('isExistUsername')) {
     function isExistUsername($username)
     {
@@ -50,6 +49,20 @@ if (!function_exists('isExistUserDetail')) {
         } else {
             return false;
         }
+    }
+}
+
+if (!function_exists('getSystemSetting')) {
+    function getSystemSetting()
+    {
+        $ci = &get_instance();
+        $ci->load->database();
+        $ci->db->where('system_settings_id', 1);
+        $result =  $ci->db->get('gis_system_settings')->result();
+        foreach ($result as $system) {
+            $systemData = $system;
+        }
+        return $systemData;
     }
 }
 
