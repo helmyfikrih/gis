@@ -16,6 +16,7 @@ class Profile extends CI_Controller
             redirect('auth/login');
         }
         $this->sessionData = getSessionData();
+        $this->systemSetting = getSystemSetting();
         // Model
         $this->load->model('profile_model', 'profile');
         // Menu Access Role
@@ -57,6 +58,8 @@ class Profile extends CI_Controller
         );
         $data = array(
             'user_session' => $this->sessionData,
+            'setting' => $this->systemSetting,
+            'header_title' => "Profile",
             'plugins_path_css' => $this->plugins_path_css,
             'plugins_path_js' => $this->plugins_path_js,
             'css_path' => $this->css_path,

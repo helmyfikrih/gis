@@ -16,6 +16,7 @@ class Home extends CI_Controller
 			redirect('auth/login');
 		}
 		$this->sessionData = getSessionData();
+		$this->systemSetting = getSystemSetting();
 		// Menu Access Role
 		$urlname    = strtolower($this->router->fetch_class());
 		$menu_id       = $this->menu->idMenu($urlname);
@@ -34,6 +35,8 @@ class Home extends CI_Controller
 	{
 		$data = array(
 			'user_session' => $this->sessionData,
+			'setting' => $this->systemSetting,
+			'header_title' => "Home",
 			'css_path' => $this->css_path,
 			'plugins_path_css' => $this->plugins_path_css,
 			'plugins_path_js' => $this->plugins_path_js,
