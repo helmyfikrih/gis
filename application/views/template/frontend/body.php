@@ -14,7 +14,7 @@
                      <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                          <!-- logo start -->
                          <div class="logo">
-                             <a href="<?= base_url('frontend/home') ?>"><img src="<?= base_url() ?>assets/frontend/images/logos/it_logo.png" alt="logo" /></a>
+                             <a href="<?= base_url() ?>"><img src="<?= base_url() ?>assets/frontend/images/logos/it_logo.png" alt="logo" /></a>
                          </div>
                          <!-- logo end -->
                      </div>
