@@ -16,11 +16,13 @@ class Register extends CI_Controller
     {
         $this->plugins_path_css = array(
             'select2/css/select2.min.css',
+            'sweetalert2-theme-bootstrap-4/bootstrap-4.min.css',
         );
         $this->plugins_path_js = array(
             'select2/js/select2.full.min.js',
             'jquery-validation/jquery.validate.min.js',
             'jquery-validation/additional-methods.min.js',
+            'sweetalert2/sweetalert2.min.js',
         );
         $this->js_path = array(
             'pages/register.js',

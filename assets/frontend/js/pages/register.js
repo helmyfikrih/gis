@@ -8,7 +8,6 @@ var infowindow = new google.maps.InfoWindow({
 
 $(function () {
 	$(".select2bs4").select2({
-		theme: "bootstrap4",
 		placeholder: "Pilih salah satu...",
 		allowClear: true,
 	});
@@ -24,11 +23,10 @@ $(function () {
 				confirmButtonText: "Yes",
 			}).then((result) => {
 				if (result.value) {
-					var myForm = $("#form")[0];
 					$.ajax({
-						url: $(myForm).attr("action"),
+						url: $(form).attr("action"),
 						type: "POST",
-						data: new FormData(myForm),
+						data: new FormData(form),
 						contentType: false,
 						cache: false,
 						processData: false,
@@ -41,8 +39,6 @@ $(function () {
 									// text: response.message,
 									icon: "success",
 								});
-								$("#form").trigger("reset");
-								hideModal();
 							} else {
 								Swal.fire({
 									title: "Warning",
@@ -50,11 +46,9 @@ $(function () {
 									icon: "warning",
 								});
 							}
-							$("#datatables").DataTable().ajax.reload(null, false);
 						},
 						error: function (xhr, status, error) {
 							Swal.fire({ title: "Error", text: error, icon: "error" });
-							$("#datatables").DataTable().ajax.reload(null, false);
 						},
 					});
 				}
@@ -225,11 +219,45 @@ function codeAddress() {
 	);
 }
 
+function getKecamatan(kota) {
+	$("#kecamatan option").remove();
+	$.ajax({
+		url: `${base_url}gis/getKecamatan`,
+		type: "POST",
+		data: {
+			kota: kota,
+		},
+		dataType: "json",
+		success: function (data) {
+			$("#kecamatan").append(`<option value=""></option>`);
+			$.each(data, function (key, value) {
+				$("#kecamatan").append(
+					`<option value="${value.kecamatan_id}">${value.kecamatan_name}</option>`
+				);
+			});
+		},
+		error: function (xhr, status, error) {
+			Swal.fire({
+				title: error,
+				// text: response.message,
+				icon: "error",
+			});
+		},
+		timeout: 300000, // sets timeout to 5 minutes
+	});
+}
+
+// change handler
+$("#kota").on("change", function (e) {
+	// Do something
+	getKecamatan($("#kota").val());
+});
+
 // Vorm Validation
 $(".select-form").on("change", function (e) {
 	// Do something
 	var is_invalid = $(".is-invalid");
 	if (is_invalid.hasClass("is-invalid")) {
-		$("#form").valid();
+		$("#form_register").valid();
 	}
 });

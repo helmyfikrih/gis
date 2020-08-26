@@ -91,7 +91,7 @@
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>Kecamatan Developer</label>
-                                                           <select name="kecamatan" id="kecamatan" class="form-control">
+                                                           <select name="kecamatan" id="kecamatan" class="form-control select2bs4 select-form">
                                                            </select>
                                                        </div>
                                                    </div>
@@ -139,60 +139,60 @@
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>1. Pasphoto Direktur Utama, ukuran 4 x6 <span class="red">*</span></label>
-                                                           <input name="pasphoto" id="pasphoto" type="file" class="form-control">
+                                                           <input name="f_pasphoto" id="pasphoto" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>2. Scan/File KTP Direktur Utama <span class="red">*</span></label>
-                                                           <input name="ln" type="file" class="form-control">
+                                                           <input name="f_ktp" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>3. Scan/File Akte Pendirian Perusahaan / akte perubahab yang menyebutkan bidang usaha Realestat / sebagai pengembang <span class="red">*</span></label>
-                                                           <input name="fn" type="file" class="form-control">
+                                                           <input name="f_akte" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>4. Scan/File Surat Keterangan Domisili Perusahaan di Jakarta <span class="red">*</span></label>
-                                                           <input name="ln" type="file" class="form-control">
+                                                           <input name="f_keterangan" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>5. Scan/File Nomor Pokok Wajib Pajak ( NPWP ) <span class="red">*</span></label>
-                                                           <input name="cm" type="file" class="form-control">
+                                                           <input name="f_npwp" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>6. Scan/File Surat Ijin Usaha Perdagangan ( SIUP ) <span class="red">*</span></label>
-                                                           <input name="cm" type="file" class="form-control">
+                                                           <input name="f_siup" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>7. Scan/File Tanda Daftar Perusahaan ( TDP ) <span class="red">*</span></label>
-                                                           <input name="cm" type="file" class="form-control">
+                                                           <input name="f_tdp" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>8. File Susunan Dewan Komisaris / Direksi ( Nama & Jabatan ) serta struktur Organisasi Perusahaan <span class="red">*</span></label>
-                                                           <input name="cm" type="file" class="form-control">
+                                                           <input name="f_susunan_dewan" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>9. Scan/File Surat pernyataan kesediaan untuk mematuhi semua ketentuan / peraturan yang berlaku, dan menjalankan etika profesi sesuai Saptabrata REI (dibuat diatas kop surat perusahaan & ditandatangani diatas meterai). <span class="red">*</span></label>
-                                                           <input name="cm" type="file" class="form-control">
+                                                           <input name="f_pernyataan" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <input name="ck" type="checkbox">
+                                                           <input name="agreement" id="agreement" type="checkbox">
                                                            <span class="crte-ac">Saya Bersedia Mengikuti Kebijakan dan Ketentuan Yang Berlaku.</span> </div>
                                                    </div>
                                                </div>
