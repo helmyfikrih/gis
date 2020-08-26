@@ -341,4 +341,68 @@ class Register extends CI_Controller
         sendMail($register_email, 'E-mail verification', $message);
         echo json_encode($res);
     }
+
+    function verify()
+    {
+        $uniqid = $this->uri->segment(4);
+        $username = $this->uri->segment(5);
+
+        $cond = array(
+            'register_uniq_code' => $uniqid,
+            'register_username' => $username,
+            'register_status' => 2,
+        );
+
+        $getData = $this->register->getData($cond);
+        $registerStatus = $getData[0]['register_mandatory_approve'] == 0 ? 1 : 2;
+        if ($getData && ($getData[0]['register_email_verify_status'] != 1)) {
+            $this->db->trans_begin();
+            $this->register->verifyEmail($cond, $registerStatus);
+            if ($getData[0]['register_mandatory_approve'] == 1) {
+                $message = "Terimakasih telah melakukan verifikasi alamat e-mail anda. Pendaftaran anda sedang menunggu validasi oleh admin, silahkan tunggu info selanjutnya!";
+            } else {
+                $message = "Terimakasih telah melakukan verifikasi alamat e-mail anda. Akun anda sekarang sudah aktif, silahkan gunakan credential yang digunakan pada saat registrasi untuk login.";
+                $data['data_user'] = array(
+                    'role_id' => 3,
+                    'user_username' => $getData[0]['register_username'],
+                    'user_password' => $getData[0]['register_password'],
+                    'user_email' => $getData[0]['register_email'],
+                    'user_created_date' => $getData[0]['register_date'],
+                    'user_status' => 1,
+                );
+                $this->register->insertUser($data['data_user']);
+                $user_id = $this->db->insert_id();
+                $data['data_developer_detail'] = array(
+                    'kecamatan_id' => $getData[0]['kecamatan_id'],
+                    'user_id' => $user_id,
+                    'register_id' => $getData[0]['register_id'],
+                    'developer_name' => $getData[0]['register_name'],
+                    'developer_email' => $getData[0]['register_email'],
+                    'developer_phone' => $getData[0]['register_phone'],
+                    'developer_address' => $getData[0]['register_address'],
+                    'developer_lat' => $getData[0]['register_lat'],
+                    'developer_lng' => $getData[0]['register_lng'],
+                    'developer_since' => $getData[0]['register_since'],
+                    'developer_status' => 1,
+                );
+                $this->register->insertDeveloperDetail($data['data_developer_detail']);
+            }
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $this->db->error();
+            } else {
+                $this->db->trans_commit();
+
+                $data = array(
+                    'message' =>  $message
+                );
+                $this->load->view('auth/email_confirmation', $data);
+                // $message = $this->load->view('template/mail', $dataTemplate, TRUE);
+                $this->load->helper('email');
+                sendMail($getData[0]['register_email'], 'E-mail verification', $message);
+            }
+        } else {
+            redirect('auth/login');
+        }
+    }
 }
