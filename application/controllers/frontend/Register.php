@@ -25,12 +25,14 @@ class Register extends CI_Controller
         $this->js_path = array(
             'pages/register.js',
         );
+        $this->load->helper('select');
         $data = array(
             'header_title' => "Home",
             'css_path' => $this->css_path,
             'plugins_path_css' => $this->plugins_path_css,
             'plugins_path_js' => $this->plugins_path_js,
             'js_path' => $this->js_path,
+            'select_kota' => getSelectKota(),
         );
         $this->template->load('frontend', 'frontend/register', $data);
     }

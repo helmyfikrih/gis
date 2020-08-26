@@ -80,7 +80,11 @@
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <label>Kota Developer</label>
-                                                           <select name="kota" id="kota" class="form-control">
+                                                           <select name="kota" id="kota" class="form-control select2bs4 select-form">
+                                                               <option></option>
+                                                               <?php foreach ($select_kota as $kota) { ?>
+                                                                   <option value="<?= $kota->kota_id ?>"><?= $kota->kota_name ?></option>
+                                                               <?php } ?>
                                                            </select>
                                                        </div>
                                                    </div>

@@ -7,6 +7,11 @@ var infowindow = new google.maps.InfoWindow({
 });
 
 $(function () {
+	$(".select2bs4").select2({
+		theme: "bootstrap4",
+		placeholder: "Pilih salah satu...",
+		allowClear: true,
+	});
 	$.validator.setDefaults({
 		submitHandler: function (form) {
 			Swal.fire({
@@ -219,3 +224,12 @@ function codeAddress() {
 		}
 	);
 }
+
+// Vorm Validation
+$(".select-form").on("change", function (e) {
+	// Do something
+	var is_invalid = $(".is-invalid");
+	if (is_invalid.hasClass("is-invalid")) {
+		$("#form").valid();
+	}
+});
