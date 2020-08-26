@@ -95,6 +95,7 @@ class Register extends CI_Controller
         $register_phone = $this->input->post('phone');
         $register_recomended_by = $this->input->post('recomendation');
         $register_accept_agrement = $this->input->post('agreement');
+        $uniqid = uniqid('gis_', true);
         $data['data_register'] = array(
             "kecamatan_id" => $kecamatan_id,
             "register_name" => $register_name,
@@ -102,7 +103,8 @@ class Register extends CI_Controller
             "register_phone" => $register_phone,
             "register_email" => $register_email,
             "register_username" => $register_username,
-            "register_password" => $register_password,
+            "register_password" => md5($register_password),
+            "register_uniq_code" => $uniqid,
             "register_recomended_by" => $register_recomended_by,
             "register_lat" => $register_lat,
             "register_lng" => $register_lng,
@@ -331,6 +333,12 @@ class Register extends CI_Controller
                 'message' => "Pendaftaran Berhasil Dilakukan, Silahkan Verifikasi E-mail Anda. Dan Tunggu Pemberitahuan Terkait Validasi Pendaftaran.",
             );
         }
+        $this->load->helper('email');
+        $url = base_url('auth/register/verify/' . $uniqid . '/' . $register_username);
+        $message = "Hi $register_name, <br> Terimakasih Telah Melakukan Registrasi.<br><br>Silahkan klik verifikasi untuk mengaktifkan akun anda.<br/>
+        <a href='$url'>Verifikasi</a>";
+        // $message = $this->load->view('template/email', $text, TRUE);
+        sendMail($register_email, 'E-mail verification', $message);
         echo json_encode($res);
     }
 }

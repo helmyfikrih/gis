@@ -110,37 +110,37 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="company_name">SMTP USER</label>
-                                                    <input class="form-control" placeholder="SMTP USER" name="sys_smtp_user" type="text" id="sys_smtp_user" value="">
+                                                    <input class="form-control" placeholder="SMTP USER" name="sys_smtp_user" type="text" id="sys_smtp_user" value="<?= $setting->system_settings_smtp_user ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="company_name">SMTP PASSWORD</label>
-                                                    <input class="form-control" placeholder="SMTP PASSWORD" name="sys_smtp_pass" type="text" id="sys_smtp_pass" value="">
+                                                    <input class="form-control" placeholder="SMTP PASSWORD" name="sys_smtp_pass" type="text" id="sys_smtp_pass" value="<?= $setting->system_settings_smtp_password ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="company_name">SMTP CRYPTO</label>
-                                                    <input class="form-control" placeholder="SMTP CRYPTO" name="sys_smtp_crypto" type="text" id="sys_smtp_crypto" value="">
+                                                    <input class="form-control" placeholder="SMTP CRYPTO" name="sys_smtp_crypto" type="text" id="sys_smtp_crypto" value="<?= $setting->system_settings_smtp_crypto ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="company_name">SMTP PORT</label>
-                                                    <input class="form-control" placeholder="SMTP PORT" name="sys_smtp_port" type="number" min="0" id="sys_smtp_port" value="">
+                                                    <input class="form-control" placeholder="SMTP PORT" name="sys_smtp_port" type="number" min="0" id="sys_smtp_port" value="<?= $setting->system_settings_smtp_port ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="company_name">SMTP FROM</label>
-                                                    <input class="form-control" placeholder="SMTP FROM" name="sys_smtp_from" type="text" id="sys_smtp_from" value="">
+                                                    <input class="form-control" placeholder="SMTP FROM" name="sys_smtp_from" type="text" id="sys_smtp_from" value="<?= $setting->system_settings_smtp_from ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="company_name">SMTP ALIAS</label>
-                                                    <input class="form-control" placeholder="SMTP ALIAS" name="sys_smtp_alias" type="text" id="sys_smtp_alias" value="">
+                                                    <input class="form-control" placeholder="SMTP ALIAS" name="sys_smtp_alias" type="text" id="sys_smtp_alias" value="<?= $setting->system_settings_smtp_alias ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-12 ">
