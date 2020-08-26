@@ -95,6 +95,9 @@ $(function () {
 	});
 	$("#form").validate({
 		rules: {
+			kota_id: {
+				required: true,
+			},
 			kecamatan_code: {
 				required: true,
 				minlength: 3,
@@ -163,7 +166,7 @@ function edit(e) {
 	});
 }
 
-function deleteData(rid, rcode) {
+function deleteData(id, code) {
 	Swal.fire({
 		title: "Apakah Anda Yakin?",
 		text: "Data akan dihapus secara permanen dan tidak dapat dikembalikan.",
@@ -179,8 +182,8 @@ function deleteData(rid, rcode) {
 				url: `${base_url}data_kecamatan/delete`,
 				type: "POST",
 				data: {
-					rid: rid,
-					rcode: rcode,
+					id: id,
+					code: code,
 				},
 				dataType: "json",
 				success: function (data) {
@@ -208,3 +211,17 @@ function deleteData(rid, rcode) {
 		}
 	});
 }
+
+$("#form").on("reset", function (e) {
+	$(".select2bs4").val("").trigger("change");
+	$(".is-invalid").removeClass("is-invalid");
+});
+
+// Vorm Validation
+$(".select-form").on("change", function (e) {
+	// Do something
+	var is_invalid = $(".is-invalid");
+	if (is_invalid.hasClass("is-invalid")) {
+		$("#form").valid();
+	}
+});
