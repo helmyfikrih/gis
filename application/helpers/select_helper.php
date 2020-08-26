@@ -10,3 +10,13 @@ if (!function_exists('getSelectRole')) {
         return $ci->db->query($q)->result();
     }
 }
+
+if (!function_exists('getSelectKota')) {
+    function getSelectKota()
+    {
+        $ci = &get_instance();
+        $ci->load->database();
+        $q  = "SELECT * FROM gis_kota WHERE 1=1";
+        return $ci->db->query($q)->result();
+    }
+}
