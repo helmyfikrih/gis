@@ -36,7 +36,7 @@
                  </div>
                  <div class="float-right">
                      <div class="make_appo">
-                         <a class="btn white_btn" href="#">Daftar Menjadi Anggota Kami</a>
+                         <a class="btn white_btn" href="<?= base_url('register_anggota_baru') ?>">Daftar Menjadi Anggota Kami</a>
                      </div>
                  </div>
              </div>
