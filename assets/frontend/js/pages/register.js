@@ -35,14 +35,16 @@ $(function () {
 							response = jQuery.parseJSON(JSON.stringify(data));
 							if (response.is_success === true) {
 								Swal.fire({
-									title: response.message,
-									// text: response.message,
+									// title: response.message,
+									html: response.message,
 									icon: "success",
+								}).then((result) => {
+									location.reload();
 								});
 							} else {
 								Swal.fire({
 									title: "Warning",
-									text: response.message,
+									html: response.message,
 									icon: "warning",
 								});
 							}

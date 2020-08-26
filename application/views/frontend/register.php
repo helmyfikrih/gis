@@ -68,7 +68,7 @@
                                                    <div class="col-md-6">
                                                        <div class="form-group">
                                                            <label>Ulangi Password <span class="red">*</span></label>
-                                                           <input name="password_confirm" id="password_confirm" type="text" class="form-control">
+                                                           <input name="password_confirm" id="password_confirm" type="password" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">

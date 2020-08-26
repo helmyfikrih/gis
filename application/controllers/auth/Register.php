@@ -12,8 +12,76 @@ class Register extends CI_Controller
 
     function index()
     {
-        // print_r($_POST);
-        // print_r($_FILES);
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules(
+            'email',
+            'Email',
+            'required|min_length[5]|max_length[45]|is_unique[gis_user.user_email]|is_unique[gis_register.register_email]',
+            array(
+                'required'      => 'You have not provided %s.',
+                'is_unique'     => '%s sudah terdaftar.'
+            )
+        );
+        if ($this->form_validation->run() == FALSE) {
+            $res =  array(
+                'is_success' => false,
+                'message' => validation_errors()
+            );
+            echo json_encode($res);
+            exit;
+        }
+        $this->form_validation->set_rules(
+            'username',
+            'Username',
+            'trim|required|min_length[5]|max_length[20]|is_unique[gis_user.user_username]|is_unique[gis_register.register_username]',
+            array(
+                'required'      => 'You have not provided %s.',
+                'is_unique'     => '%s sudah terdaftar.'
+            )
+        );
+        if ($this->form_validation->run() == FALSE) {
+            $res =  array(
+                'is_success' => false,
+                'message' => validation_errors()
+            );
+            echo json_encode($res);
+            exit;
+        }
+        $this->form_validation->set_rules(
+            'phone',
+            'Nomor Telepon',
+            'trim|required|min_length[5]|max_length[20]|is_unique[gis_register.register_phone]',
+            array(
+                'required'      => 'You have not provided %s.',
+                'is_unique'     => '%s sudah terdaftar.'
+            )
+        );
+        if ($this->form_validation->run() == FALSE) {
+            $res =  array(
+                'is_success' => false,
+                'message' => validation_errors()
+            );
+            echo json_encode($res);
+            exit;
+        }
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|max_length[20]');
+        if ($this->form_validation->run() == FALSE) {
+            $res =  array(
+                'is_success' => false,
+                'message' => validation_errors()
+            );
+            echo json_encode($res);
+            exit;
+        }
+        $this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[5]|max_length[20]|matches[password]');
+        if ($this->form_validation->run() == FALSE) {
+            $res =  array(
+                'is_success' => false,
+                'message' => validation_errors()
+            );
+            echo json_encode($res);
+            exit;
+        }
         $register_username = $this->input->post('username');
         $register_email = $this->input->post('email');
         $register_password = $this->input->post('password');
