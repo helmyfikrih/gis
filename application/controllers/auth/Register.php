@@ -123,7 +123,7 @@ class Register extends CI_Controller
         $f_susunan_dewan = 'f_susunan_dewan';
         $f_pernyataan = 'f_pernyataan';
         $filePath = "./assets/uploads/register/" . $register_phone;
-        $filePathUrl = "assets/uploads/sidang/" . $register_phone;
+        $filePathUrl = "assets/uploads/register/" . $register_phone;
         $this->load->helper('upload');
         $uploadParams = array(
             'file_name' => $f_pasphoto,
