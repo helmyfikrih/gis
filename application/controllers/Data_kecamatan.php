@@ -22,7 +22,7 @@ class Data_kecamatan extends CI_Controller
         // Menu Access Role
         $urlname    = strtolower($this->router->fetch_class());
         $menu_id       = $this->menu->idMenu($urlname);
-        $user_allow = $this->menu->UserAllow($this->session_data['user_id']);
+        $user_allow = $this->menu->UserAllow($this->session_data['role_id']);
         $user_allow_menu = explode(",", $user_allow[0]['role_allow_menu']);
         $this->data['menu_allow'] = '';
         $this->data['user_allow_menu'] = $user_allow_menu;
