@@ -1,3 +1,12 @@
+var geocoder;
+var map;
+var marker;
+var infowindow = new google.maps.InfoWindow({
+	size: new google.maps.Size(150, 50),
+});
+var map_address;
+var lat;
+var lng;
 $(function () {
 	var myTable = $("#datatables").DataTable({
 		autoWidth: false,
@@ -43,6 +52,7 @@ function view(id, email) {
 			$("#footer-view").html("");
 			$("#body-view").html("");
 			var attachment = "";
+			var btn_approval = "";
 			$.each(e.data_register_attachment, function (key, value) {
 				attachment += `<a href='${value.register_attachment_url}' data-rel='colorbox' class='' style='padding-left:1%;padding-right:1%; border-style: solid;' target='_blank'>
                                     <i class='fa fa-paperclip'>  ${value.register_attachment_type}</i>
@@ -54,6 +64,13 @@ function view(id, email) {
 				var status_registrasi = `<span class=" badge bg-warning">Menunggu Verifikasi</span>`;
 				var email_verify_date = "";
 				var approval_date = "";
+				var approval_date_text = `<tr>
+                                        <th>Tanggal Approval Registrasi :</th>
+                                        <td>${formatDate(
+																					"dd-mm-yyyy",
+																					value.register_last_update
+																				)}</td>
+                                    </tr>`;
 				if (value.register_email_verify_status == 1) {
 					email_verify_date = `<tr>
                                         <th>Tanggal E-mail Verification :</th>
@@ -66,15 +83,14 @@ function view(id, email) {
 					status_email = `<span class=" badge bg-success">Sudah Terverifikasi</span>`;
 				}
 				if (value.register_status == 1) {
-					approval_date = ` <tr>
-                                        <th>Tanggal Approval Registrasi :</th>
-                                        <td>${formatDate(
-																					"dd-mm-yyyy",
-																					value.register_last_update
-																				)}</td>
-                                    </tr>
-                    `;
+					approval_date = approval_date_text;
 					status_registrasi = `<span class=" badge bg-success">Sudah Terverifikasi</span>`;
+				} else if (value.register_status == 2) {
+					btn_approval += `<button type="button" class="btn btn-danger" onclick="approval(0,'${value.register_email}','${value.register_uniq_code}')">Reject</button>&nbsp`;
+					btn_approval += `<button type="button" class="btn btn-info" onclick="approval(1,'${value.register_email}','${value.register_uniq_code}')">Approve</button> &nbsp`;
+				} else if (value.register_status == 0) {
+					approval_date = approval_date_text;
+					status_registrasi = `<span class=" badge bg-danger">Ditolak</span>`;
 				}
 				$("#body-view").html(
 					`<div class="row">
@@ -116,42 +132,35 @@ function view(id, email) {
 								<th>Tanggal Registrasi:</th>
 								<td>${formatDate("dd-mm-yyyy", value.register_created_date)}</td>
                             </tr>
-                            
-						</tbody>
-					</table>
-				</div>
-				 </div>
-				 <div class="col-md-6 col-sm-12">
-				 <div class="text-center" id="map">
-   
-                 </div>
-                 <table class="table">
-                    <tbody>
-                        <tr>
+                             <tr>
                             <th>File Registration :</th>
                             <td>
                                ${attachment} 
                             </td>
                         </tr>
-                    </tbody>
+						</tbody>
 					</table>
+				</div>
+				 </div>
+				 <div class="col-md-6 col-sm-12">
+                 <div id="map">
+                 
+                 </div>
 				 </div>
 				 </div>
 				`
 				);
+				map_address = value.register_address;
+				lat = value.register_lat;
+				lng = value.register_lng;
 			});
 
 			$("#footer-view").html(`
-                    <button type="button" class="btn btn-danger">Reject</button>
-                    <button type="button" class="btn btn-info">Approve</button>
+            ${btn_approval}
             `);
-			$(".profile-img-clickable").colorbox({
-				rel: "profile-img-clickable",
-				transition: "fade",
-				scalePhotos: true,
-				maxWidth: "100%",
-				maxHeight: "100%",
-			});
+			initialize();
+			if (!lat & !lng) codeAddress(map_address);
+			google.maps.event.trigger(map, "resize");
 		},
 		error: function (xhr, status, error) {
 			Swal.fire({ title: "Error", text: error, icon: "error" });
@@ -159,10 +168,16 @@ function view(id, email) {
 	});
 }
 
-function approval() {
+function approval(approval, email, code) {
+	var text;
+	if (approval == 1 || approval == "1") {
+		text = "Approve";
+	} else {
+		text = "Reject";
+	}
 	Swal.fire({
 		title: "Apakah Anda Yakin?",
-		text: "",
+		text: text,
 		icon: "question",
 		showCancelButton: true,
 		confirmButtonColor: "#3085d6",
@@ -170,14 +185,14 @@ function approval() {
 		confirmButtonText: "Yes",
 	}).then((result) => {
 		if (result.value) {
-			var myForm = $("#form")[0];
 			$.ajax({
-				url: $(myForm).attr("action"),
+				url: `${base_url}members_registration/approval`,
 				type: "POST",
-				data: new FormData(myForm),
-				contentType: false,
-				cache: false,
-				processData: false,
+				data: {
+					approval: approval,
+					email: email,
+					code: code,
+				},
 				dataType: "json",
 				success: function (data) {
 					response = jQuery.parseJSON(JSON.stringify(data));
@@ -187,8 +202,7 @@ function approval() {
 							// text: response.message,
 							icon: "success",
 						});
-						$("#form").trigger("reset");
-						hideModal();
+						$("#modalView").modal("hide");
 					} else {
 						Swal.fire({
 							title: "Warning",
@@ -205,4 +219,69 @@ function approval() {
 			});
 		}
 	});
+}
+
+function initialize(lat, lng) {
+	geocoder = new google.maps.Geocoder();
+	var latlng = new google.maps.LatLng(-6.2295712, 106.759478);
+	var mapOptions = {
+		zoom: 12,
+		center: latlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+	};
+	map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	google.maps.event.addListener(map, "click", function () {
+		infowindow.close();
+	});
+}
+
+function geocodePosition(pos) {
+	geocoder.geocode(
+		{
+			latLng: pos,
+		},
+		function (responses) {
+			if (responses && responses.length > 0) {
+				marker.formatted_address = responses[0].formatted_address;
+			} else {
+				marker.formatted_address = "Cannot determine address at this location.";
+			}
+			infowindow.setContent(
+				marker.formatted_address +
+					"<br>coordinates: " +
+					marker.getPosition().toUrlValue(6)
+			);
+			// infowindow.open(map, marker);
+		}
+	);
+}
+
+function codeAddress(adress) {
+	var address = adress;
+	geocoder.geocode(
+		{
+			address: address,
+		},
+		function (results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				map.setCenter(results[0].geometry.location);
+				is_searched = true;
+				if (marker) {
+					marker.setMap(null);
+					if (infowindow) infowindow.close();
+				}
+				marker = new google.maps.Marker({
+					map: map,
+					draggable: false,
+					position: results[0].geometry.location,
+				});
+				map.fitBounds(results[0].geometry.viewport);
+				google.maps.event.addListener(marker, "dragend", function () {
+					geocodePosition(marker.getPosition());
+				});
+			} else {
+				alert("Geocode was not successful for the following reason: " + status);
+			}
+		}
+	);
 }

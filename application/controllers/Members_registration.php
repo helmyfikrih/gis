@@ -111,6 +111,8 @@ class Members_registration extends CI_Controller
             }
             if ($field->register_status == 1) {
                 $status_registration = '<span class=" badge bg-success">Sudah Terverifikasi</span>';
+            } else if ($field->register_status == 0) {
+                $status_registration = '<span class=" badge bg-danger">Ditolak</span>';
             } else {
                 $status_registration = '<span class=" badge bg-warning">Menunggu Verifikasi</span>';
             }
@@ -149,5 +151,93 @@ class Members_registration extends CI_Controller
             'data_register_attachment' => $this->register->getOneAttachment($cond),
         );
         echo json_encode($data);
+    }
+
+    function approval()
+    {
+        if (!array_intersect(array($this->data['menu_allow'] . '_approval'), $this->data['user_allow_menu'])) {
+            $res = array(
+                'is_success' => false,
+                'message' => "User Tidak Memiliki Hak Akses",
+            );
+            echo json_encode($res);
+            exit;
+        }
+        $approval = $this->input->post('approval');
+        $email = $this->input->post('email');
+        $code = $this->input->post('code');
+        $cond = array(
+            'register_uniq_code' => $code,
+            'register_email' => $email,
+            'register_status' => 2,
+        );
+
+        $getData = $this->register->getData($cond);
+        $data['cond'] = array(
+            'register_uniq_code' => $code,
+            'register_email' => $email,
+        );
+        $this->db->trans_begin();
+        if ($approval == 1 || $approval == '1') {
+
+            $data['data_register'] = array(
+                'register_status' => 1,
+                'register_last_update' => date("Y-m-d H:i:s"),
+                'register_last_update_by' => $this->session_data['user_id'],
+            );
+            $this->register->updateData($data);
+            $message = "Terimakasih telah menunggu proses verifikasi pendaftaran anda. Selamat, pendaftaran anda diterima, silahkan gunakan credential yang digunakan pada saat registrasi untuk login.";
+            $data['data_user'] = array(
+                'role_id' => 3,
+                'user_username' => $getData[0]['register_username'],
+                'user_password' => $getData[0]['register_password'],
+                'user_email' => $getData[0]['register_email'],
+                'user_created_date' => $getData[0]['register_created_date'],
+                'user_status' => 1,
+            );
+            $this->register->insertUser($data['data_user']);
+            $user_id = $this->db->insert_id();
+            $data['data_developer_detail'] = array(
+                'kecamatan_id' => $getData[0]['kecamatan_id'],
+                'user_id' => $user_id,
+                'register_id' => $getData[0]['register_id'],
+                'developer_name' => $getData[0]['register_name'],
+                'developer_email' => $getData[0]['register_email'],
+                'developer_phone' => $getData[0]['register_phone'],
+                'developer_address' => $getData[0]['register_address'],
+                'developer_lat' => $getData[0]['register_lat'],
+                'developer_lng' => $getData[0]['register_lng'],
+                'developer_since' => $getData[0]['register_since'],
+                'developer_join_date' => date("Y-m-d H:i:s"),
+                'developer_status' => 1,
+            );
+            $this->register->insertDeveloperDetail($data['data_developer_detail']);
+        } else if ($approval == 0 || $approval = '0') {
+            $data['data_register'] = array(
+                'register_status' => 0,
+                'register_last_update' => date("Y-m-d H:i:s"),
+                'register_last_update_by' => $this->session_data['user_id'],
+            );
+            $this->register->updateData($data);
+            $message = "Terimakasih telah menunggu proses verifikasi pendaftaran anda. Maaf, pendaftaran anda ditolak, silahkan hubungi kami untuk detail lebih lanjut.";
+        }
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $this->db->error();
+            $res = array(
+                'is_success' => false,
+                'message' =>   $this->db->error()
+            );
+        } else {
+            $this->db->trans_commit();
+
+            $res = array(
+                'is_success' => true,
+                'message' => "Berhasil Melakukan Approval Pendafataran Anggota Baru.",
+            );
+            $this->load->helper('email');
+            sendMail($getData[0]['register_email'], 'E-mail verification', $message);
+        }
+        echo json_encode($res);
     }
 }

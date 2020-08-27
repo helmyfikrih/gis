@@ -1,3 +1,9 @@
+<style>
+    #map {
+        width: 100%;
+        height: 50%;
+    }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -88,3 +94,7 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAl9LtfJKn0c-q5ebjAaJfil1ghK6J6TSk&language=id&region=id"></script> -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk=id&region=id"></script>

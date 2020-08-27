@@ -367,7 +367,7 @@ class Register extends CI_Controller
                     'user_username' => $getData[0]['register_username'],
                     'user_password' => $getData[0]['register_password'],
                     'user_email' => $getData[0]['register_email'],
-                    'user_created_date' => $getData[0]['register_date'],
+                    'user_created_date' => $getData[0]['register_created_date'],
                     'user_status' => 1,
                 );
                 $this->register->insertUser($data['data_user']);
@@ -383,6 +383,7 @@ class Register extends CI_Controller
                     'developer_lat' => $getData[0]['register_lat'],
                     'developer_lng' => $getData[0]['register_lng'],
                     'developer_since' => $getData[0]['register_since'],
+                    'developer_join_date' => date("Y-m-d H:i:s"),
                     'developer_status' => 1,
                 );
                 $this->register->insertDeveloperDetail($data['data_developer_detail']);

@@ -135,4 +135,19 @@ class Register_model extends CI_Model
         $this->db->where($cond);
         return $this->db->get()->result_array();
     }
+
+    function updateData($data)
+    {
+        $this->db->where($data['cond']);
+        return $this->db->update('gis_register', $data['data_register']);
+    }
+
+    function insertUser($data)
+    {
+        return $this->db->insert('gis_user', $data);
+    }
+    function insertDeveloperDetail($data)
+    {
+        return $this->db->insert('gis_developer_detail', $data);
+    }
 }
