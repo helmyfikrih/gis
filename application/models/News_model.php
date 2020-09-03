@@ -92,40 +92,31 @@ class News_model extends CI_Model
         return $query->num_rows();
     }
 
-    function insertUser($data)
+    function insert($data)
     {
-        return $this->db->insert('gis_user', $data);
+        return $this->db->insert('gis_news', $data['data_news']);
     }
 
-    function updateUser($data, $cond)
+    function update($data)
     {
+        $this->db->where($data['cond']);
+        return $this->db->update('gis_news', $data['data_news']);
+    }
+
+    function getOne($cond)
+    {
+        $this->db->select('n.*,ud.ud_full_name, r.role_name, r.role_status');
+        $this->db->from('gis_news n');
+        $this->db->join('gis_user u', 'u.user_id=n.user_id');
+        $this->db->join('gis_user_detail ud', 'ud.user_id=n.user_id', 'left');
+        $this->db->join('gis_user_role r', 'r.role_id=u.role_id');
         $this->db->where($cond);
-        return $this->db->update('gis_user', $data);
-    }
-    function insertUserDetail($data)
-    {
-        return $this->db->insert('gis_user_detail', $data);
-    }
-
-    function updateUserDetail($data, $cond)
-    {
-        $this->db->where($cond);
-        return $this->db->update('gis_user_detail', $data);
-    }
-
-    function getOne($id)
-    {
-        $this->db->select("u.user_username, u.user_email,u.role_id, u.user_status,r.role_name,ud.*, u.news_id as uid");
-        $this->db->where('u.news_id', $id);
-        $this->db->from('gis_user u');
-        $this->db->join('gis_user_detail ud', 'ud.news_id=u.news_id', 'left');
-        $this->db->join('gis_user_role r', 'r.role_id=u.role_id', 'left');
         return $this->db->get()->result_array();
     }
 
     function deleteData($data)
     {
         $this->db->where($data['cond']);
-        return $this->db->delete('gis_user');
+        return $this->db->delete('gis_news');
     }
 }

@@ -46,8 +46,6 @@ class News extends CI_Controller
             'datatables-responsive/js/dataTables.responsive.min.js',
             'datatables-responsive/js/responsive.bootstrap4.min.js',
             'sweetalert2/sweetalert2.min.js',
-            'jquery-validation/jquery.validate.min.js',
-            'jquery-validation/additional-methods.min.js',
         );
         $this->js_path = array(
             'pages/news.js',
@@ -87,12 +85,12 @@ class News extends CI_Controller
             $btnView = "";
 
             if (array_intersect(array($this->data['menu_allow'] . '_update'), $this->data['user_allow_menu'])) {
-                $btnEdit = '<span><button type="button" class="btn btn-outline-info btn-sm" onclick="edit(\'' . ($field->user_id) . '\')"><i class="fa fa-edit"></i> Edit</button></span>';
+                $btnEdit = '<span><a type="button" class="btn btn-outline-info btn-sm" href="' . base_url('news/edit/' . $field->news_id . '/' . $field->news_slug) . '"><i class="fa fa-edit"></i> Edit</a></span>';
             }
             if (array_intersect(array($this->data['menu_allow'] . '_delete'), $this->data['user_allow_menu'])) {
-                $btnDelete = '<span><button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteData(\'' . ($field->user_id) . '\', \'' . ($field->user_username) . '\')"><i class="fa fa-trash"></i> Delete</button></span>';
+                $btnDelete = '<span><button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteData(\'' . ($field->news_id) . '\', \'' . ($field->news_slug) . '\')"><i class="fa fa-trash"></i> Delete</button></span>';
             }
-            $btnView = '<span><button type="button" class="btn btn-outline-success btn-sm" onclick="view(\'' . ($field->user_id) . '\')"><i class="fa fa-eye"></i> View</button></span>';
+            $btnView = '<span><button type="button" class="btn btn-outline-success btn-sm" onclick="view(\'' . ($field->news_id) . '\')"><i class="fa fa-eye"></i> View</button></span>';
             $btn = " <div class='d-none d-sm-block d-sm-none d-md-block'>$btnEdit $btnView $btnDelete</div>";
             $btn .= "   <div class='input-group-prepend d-md-none d-lg-none d-xl-none '>
                           <button type='button' class='btn btn-default dropdown-toggle dropdown-icon' data-toggle='dropdown'>
@@ -127,5 +125,146 @@ class News extends CI_Controller
         //output dalam format JSON
 
         echo json_encode($output);
+    }
+
+    function create()
+    {
+        $this->plugins_path_css = array(
+            'sweetalert2-theme-bootstrap-4/bootstrap-4.min.css',
+            'tags/tagsinput.css',
+        );
+        $this->plugins_path_js = array(
+            'datatables/jquery.dataTables.min.js',
+            'sweetalert2/sweetalert2.min.js',
+            'jquery-validation/jquery.validate.min.js',
+            'jquery-validation/additional-methods.min.js',
+            'tags/tagsinput.js',
+            'ckfinder/ckfinder.js',
+            'ckeditor/ckeditor.js',
+        );
+        $this->js_path = array(
+            'pages/news.js',
+        );
+        $data = array(
+            'user_session' => $this->sessionData,
+            'setting' => $this->systemSetting,
+            'header_title' => "User Roles",
+            'plugins_path_css' => $this->plugins_path_css,
+            'plugins_path_js' => $this->plugins_path_js,
+            'css_path' => $this->css_path,
+            'js_path' => $this->js_path,
+            'menu_body' => $this->menu_body,
+            'menu_allow' => $this->data['menu_allow'],
+            'user_allow_menu' => $this->data['user_allow_menu'],
+        );
+        if ((!in_array($this->data['menu_allow'] . '_create', $this->data['user_allow_menu']))) {
+            $this->template->load('default', 'template/403', $data);
+        } else {
+            $this->template->load('default', 'news/create', $data);
+        }
+    }
+
+    function edit()
+    {
+
+        $this->plugins_path_css = array(
+            'sweetalert2-theme-bootstrap-4/bootstrap-4.min.css',
+            'tags/tagsinput.css',
+        );
+        $this->plugins_path_js = array(
+            'datatables/jquery.dataTables.min.js',
+            'sweetalert2/sweetalert2.min.js',
+            'jquery-validation/jquery.validate.min.js',
+            'jquery-validation/additional-methods.min.js',
+            'tags/tagsinput.js',
+            'ckfinder/ckfinder.js',
+            'ckeditor/ckeditor.js',
+        );
+        $this->js_path = array(
+            'pages/news.js',
+        );
+        $news_id = $this->uri->segment(3);
+        $news_slug = $this->uri->segment(4);
+        $cond = array(
+            'news_id' => $news_id,
+            'news_slug' => $news_slug,
+        );
+        $news = $this->news->getOne($cond);
+        $data = array(
+            'user_session' => $this->sessionData,
+            'setting' => $this->systemSetting,
+            'header_title' => "User Roles",
+            'plugins_path_css' => $this->plugins_path_css,
+            'plugins_path_js' => $this->plugins_path_js,
+            'css_path' => $this->css_path,
+            'js_path' => $this->js_path,
+            'menu_body' => $this->menu_body,
+            'menu_allow' => $this->data['menu_allow'],
+            'user_allow_menu' => $this->data['user_allow_menu'],
+            'data_news' => $news,
+        );
+        if ((!in_array($this->data['menu_allow'] . '_update', $this->data['user_allow_menu']))) {
+            $this->template->load('default', 'template/403', $data);
+        } else {
+            $this->template->load('default', 'news/edit', $data);
+        }
+    }
+
+    function save()
+    {
+
+        $news_id = $this->input->post('news_id');
+        $news_title = $this->input->post('news_title');
+        $news_tags = $this->input->post('news_tags');
+        $news_body = $this->input->post('news_body');
+        $data['data_news'] = array(
+            'user_id' => $this->sessionData->user_id,
+            'news_title' => $news_title,
+            'news_slug' => url_title($news_title, 'dash', true),
+            'news_tags' => $news_tags,
+            'news_body' => $news_body,
+        );
+        $this->db->trans_begin();
+        if (!$news_id) {
+            if (!array_intersect(array($this->data['menu_allow'] . '_create'), $this->data['user_allow_menu'])) {
+                $res = array(
+                    'is_success' => false,
+                    'message' => "User Tidak Memiliki Hak Akses",
+                );
+                echo json_encode($res);
+                exit;
+            } else {
+
+                $data['data_news']['news_status'] = 1;
+                $data['data_news']['news_created_date'] = date('Y-m-d H:i:s');
+                $data['data_news']['news_created_by'] =  $this->sessionData->user_id;
+                $this->news->insert($data);
+                $msg = "Berhasil Membuat News";
+            }
+        } else {
+            $data['data_news']['news_last_update'] = date('Y-m-d H:i:s');
+            $data['data_news']['news_last_update_by'] =  $this->sessionData->user_id;
+            $data['cond'] = array(
+                'news_id' => $news_id
+            );
+            $this->news->update($data);
+            $msg = "Berhasil Mengubah News";
+        }
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $err = $this->db->error();
+            $msg = $err["code"] . "-" . $err["message"];
+            $res = array(
+                'is_success' => false,
+                'message' =>  $msg
+            );
+        } else {
+            $this->db->trans_commit();
+            $res = array(
+                'is_success' => true,
+                'message' => $msg,
+            );
+        }
+        echo json_encode($res);
     }
 }
