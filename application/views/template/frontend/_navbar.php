@@ -3,9 +3,12 @@
        <div id="navbar_menu">
            <ul class="first-ul">
                <li>
-                   <a href="<?= base_url('frontend/home') ?>">Home</a>
+                   <a href="<?= base_url('') ?>">Home</a>
                </li>
                <li><a href="<?= base_url('peta_persebaran   ') ?>">Peta Persebaran</a></li>
+               <li>
+                   <a href="<?= base_url('news_list') ?>">News</a>
+               </li>
                <?php if ($this->session->userdata('logged_in')) {  ?>
                    <li><a href="<?= base_url('home') ?>">User Panel</a></li>
                <?php } else { ?>

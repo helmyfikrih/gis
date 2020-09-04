@@ -131,4 +131,32 @@ class News_model extends CI_Model
         $this->db->order_by('n.news_created_date', 'asc');
         return $this->db->get()->result_array();
     }
+
+    // Fetch records
+    function getDataList($rowno, $rowperpage)
+    {
+        $this->db->select('n.*,ud.ud_full_name, r.role_name, r.role_status');
+        $this->db->from('gis_news n');
+        $this->db->join('gis_user u', 'u.user_id=n.user_id');
+        $this->db->join('gis_user_detail ud', 'ud.user_id=n.user_id', 'left');
+        $this->db->join('gis_user_role r', 'r.role_id=u.role_id');
+        $this->db->order_by('n.news_created_date', 'asc');
+        $this->db->limit($rowperpage, $rowno);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    // Select total records
+    public function getDataListCount()
+    {
+        $this->db->select('count(*) as allcount');
+        $this->db->from('gis_news n');
+        $this->db->join('gis_user u', 'u.user_id=n.user_id');
+        $this->db->join('gis_user_detail ud', 'ud.user_id=n.user_id', 'left');
+        $this->db->join('gis_user_role r', 'r.role_id=u.role_id');
+        $this->db->order_by('n.news_created_date', 'asc');
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result[0]['allcount'];
+    }
 }

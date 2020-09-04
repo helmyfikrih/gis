@@ -53,7 +53,7 @@ class News extends CI_Controller
         $data = array(
             'user_session' => $this->sessionData,
             'setting' => $this->systemSetting,
-            'header_title' => "User Roles",
+            'header_title' => "Manage News",
             'plugins_path_css' => $this->plugins_path_css,
             'plugins_path_js' => $this->plugins_path_js,
             'css_path' => $this->css_path,
@@ -148,7 +148,7 @@ class News extends CI_Controller
         $data = array(
             'user_session' => $this->sessionData,
             'setting' => $this->systemSetting,
-            'header_title' => "User Roles",
+            'header_title' => "Create News",
             'plugins_path_css' => $this->plugins_path_css,
             'plugins_path_js' => $this->plugins_path_js,
             'css_path' => $this->css_path,
@@ -193,7 +193,7 @@ class News extends CI_Controller
         $data = array(
             'user_session' => $this->sessionData,
             'setting' => $this->systemSetting,
-            'header_title' => "User Roles",
+            'header_title' => "Edit News",
             'plugins_path_css' => $this->plugins_path_css,
             'plugins_path_js' => $this->plugins_path_js,
             'css_path' => $this->css_path,
@@ -313,7 +313,7 @@ class News extends CI_Controller
         $news = $this->news->getOne($cond);
         $recent_news = $this->news->getRecentNews();
         $data = array(
-            'header_title' => "Home",
+            'header_title' => "View News",
             'css_path' => $this->css_path,
             'plugins_path_css' => $this->plugins_path_css,
             'plugins_path_js' => $this->plugins_path_js,

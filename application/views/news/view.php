@@ -42,7 +42,7 @@
                             <ul>
                                 <?php foreach ($recent_news as $rn) { ?>
                                     <li>
-                                        <p class="post_head"><a href="#"><?= $rn['news_title'] ?></a></p>
+                                        <p class="post_head"><a href="<?= base_url('news/view/' . $rn['news_id'] . '/' . $rn['news_slug']) ?>"><?= $rn['news_title'] ?></a></p>
                                         <p class="post_date"><i class="fa fa-calendar" aria-hidden="true"></i> <?= $rn['news_created_date'] ?></p>
                                     </li>
                                 <?php } ?>

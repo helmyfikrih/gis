@@ -52,5 +52,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'home_frontend';
 $route['register_anggota_baru'] = 'frontend/register';
 $route['peta_persebaran'] = 'frontend/map';
+$route['news_list'] = 'frontend/news';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
