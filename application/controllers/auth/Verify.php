@@ -51,6 +51,6 @@ class Verify extends CI_Controller
     {
         $this->session->unset_userdata('logged_in');
         $this->session->sess_destroy();
-        redirect('auth/login', 'refresh');
+        redirect('/', 'refresh');
     }
 }

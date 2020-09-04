@@ -7,10 +7,11 @@
                </li>
                <li><a href="<?= base_url('peta_persebaran   ') ?>">Peta Persebaran</a></li>
                <li>
-                   <a href="<?= base_url('news_list') ?>">News</a>
+                   <a href="<?= base_url('news/list') ?>">News</a>
                </li>
                <?php if ($this->session->userdata('logged_in')) {  ?>
                    <li><a href="<?= base_url('home') ?>">User Panel</a></li>
+                   <li><a href="<?= base_url('auth/verify/logout') ?>">Logout</a></li>
                <?php } else { ?>
                    <li><a href="<?= base_url('auth/login') ?>">Login</a></li>
                <?php } ?>

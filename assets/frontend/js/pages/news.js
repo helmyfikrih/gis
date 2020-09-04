@@ -127,25 +127,29 @@ function createNewsList(result, sno) {
 		content = content.substr(0, 30);
 		// var link = result[index].link;
 		sno += 1;
-		var list = `<div class="blog_section">
-                        <div class="blog_feature_img"> <img class="img-responsive" style="max-height:200px;" src="${imgSrc}" alt="#"> </div>
-                        <div class="blog_feature_cantant">
-                            <p class="blog_head">${title}</p>
-                            <div class="post_info">
-                                <ul>
-                                    <li><i class="fa fa-user" aria-hidden="true"></i> ${full_name}</li>
-                                    <li><i class="fa fa-calendar" aria-hidden="true"></i> ${createdDate}</li>
-                                </ul>
-                            </div>
-                           ${content}
-                            <div class="bottom_info">
-                                <div class="pull-left"><a class="btn sqaure_bt" href="${base_url}news/view/${id}/${slug}">Read More<i class="fa fa-angle-right"></i></a></div>
-                                <div class="pull-right">
-                                   
+		var list = ` <div class="col-md-6 col-sm-12">
+                     <div class="full">
+                        <div class="blog_section">
+                            <div class="blog_feature_img"> <img class="img-responsive" style="max-height:200px;" src="${imgSrc}" alt="#"> </div>
+                            <div class="blog_feature_cantant">
+                                <p class="blog_head">${title}</p>
+                                <div class="post_info">
+                                    <ul>
+                                        <li><i class="fa fa-user" aria-hidden="true"></i> ${full_name}</li>
+                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> ${createdDate}</li>
+                                    </ul>
+                                </div>
+                                ${content}
+                                <div class="bottom_info">
+                                    <div class="pull-left"><a class="btn sqaure_bt" href="${base_url}news/view/${id}/${slug}">Read More<i class="fa fa-angle-right"></i></a></div>
+                                    <div class="pull-right">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>`;
+                    </div>
+                </div>`;
 		$("#newsList").append(list);
 	}
 }

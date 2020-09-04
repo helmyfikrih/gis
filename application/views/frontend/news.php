@@ -22,18 +22,11 @@
 <!-- section -->
 <div class="section padding_layout_1 blog_list">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pull-right">
-                <div class="full">
-                    <div class="row">
-                        <div id='newsList'></div>
-                    </div>
-                    <div class="center">
-                        <div class="row">
-                            <div id='pagination'></div>
-                        </div>
-                    </div>
-                </div>
+        <div class="row" id='newsList'>
+        </div>
+        <div class="center">
+            <div class="row">
+                <div id='pagination'></div>
             </div>
         </div>
     </div>

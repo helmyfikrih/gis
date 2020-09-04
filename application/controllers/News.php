@@ -301,30 +301,4 @@ class News extends CI_Controller
         }
         echo json_encode($res);
     }
-
-    function view()
-    {
-        $news_id = $this->uri->segment(3);
-        $news_slug = $this->uri->segment(4);
-        $cond = array(
-            'news_id' => $news_id,
-            'news_slug' => $news_slug,
-        );
-        $news = $this->news->getOne($cond);
-        $recent_news = $this->news->getRecentNews();
-        $data = array(
-            'header_title' => "View News",
-            'css_path' => $this->css_path,
-            'plugins_path_css' => $this->plugins_path_css,
-            'plugins_path_js' => $this->plugins_path_js,
-            'js_path' => $this->js_path,
-            'news' => $news,
-            'recent_news' => $recent_news,
-        );
-        if ($news) {
-            $this->template->load('frontend', 'news/view', $data);
-        } else {
-            $this->template->load('frontend', 'frontend/404', $data);
-        }
-    }
 }
