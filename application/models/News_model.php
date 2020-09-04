@@ -119,4 +119,16 @@ class News_model extends CI_Model
         $this->db->where($data['cond']);
         return $this->db->delete('gis_news');
     }
+
+    function getRecentNews()
+    {
+        $this->db->select('n.*,ud.ud_full_name, r.role_name, r.role_status');
+        $this->db->from('gis_news n');
+        $this->db->join('gis_user u', 'u.user_id=n.user_id');
+        $this->db->join('gis_user_detail ud', 'ud.user_id=n.user_id', 'left');
+        $this->db->join('gis_user_role r', 'r.role_id=u.role_id');
+        $this->db->limit(5);
+        $this->db->order_by('n.news_created_date', 'asc');
+        return $this->db->get()->result_array();
+    }
 }

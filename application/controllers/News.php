@@ -85,12 +85,12 @@ class News extends CI_Controller
             $btnView = "";
 
             if (array_intersect(array($this->data['menu_allow'] . '_update'), $this->data['user_allow_menu'])) {
-                $btnEdit = '<span><a type="button" class="btn btn-outline-info btn-sm" href="' . base_url('news/edit/' . $field->news_id . '/' . $field->news_slug) . '"><i class="fa fa-edit"></i> Edit</a></span>';
+                $btnEdit = '<span><a class="btn btn-outline-info btn-sm" href="' . base_url('news/edit/' . $field->news_id . '/' . $field->news_slug) . '"><i class="fa fa-edit"></i> Edit</a></span>';
             }
             if (array_intersect(array($this->data['menu_allow'] . '_delete'), $this->data['user_allow_menu'])) {
                 $btnDelete = '<span><button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteData(\'' . ($field->news_id) . '\', \'' . ($field->news_slug) . '\')"><i class="fa fa-trash"></i> Delete</button></span>';
             }
-            $btnView = '<span><button type="button" class="btn btn-outline-success btn-sm" onclick="view(\'' . ($field->news_id) . '\')"><i class="fa fa-eye"></i> View</button></span>';
+            $btnView = '<span><a class="btn btn-outline-success btn-sm" href="' . base_url('news/view/' . $field->news_id . '/' . $field->news_slug) . '"><i class="fa fa-eye"></i> View</a></span>';
             $btn = " <div class='d-none d-sm-block d-sm-none d-md-block'>$btnEdit $btnView $btnDelete</div>";
             $btn .= "   <div class='input-group-prepend d-md-none d-lg-none d-xl-none '>
                           <button type='button' class='btn btn-default dropdown-toggle dropdown-icon' data-toggle='dropdown'>
@@ -300,5 +300,31 @@ class News extends CI_Controller
             );
         }
         echo json_encode($res);
+    }
+
+    function view()
+    {
+        $news_id = $this->uri->segment(3);
+        $news_slug = $this->uri->segment(4);
+        $cond = array(
+            'news_id' => $news_id,
+            'news_slug' => $news_slug,
+        );
+        $news = $this->news->getOne($cond);
+        $recent_news = $this->news->getRecentNews();
+        $data = array(
+            'header_title' => "Home",
+            'css_path' => $this->css_path,
+            'plugins_path_css' => $this->plugins_path_css,
+            'plugins_path_js' => $this->plugins_path_js,
+            'js_path' => $this->js_path,
+            'news' => $news,
+            'recent_news' => $recent_news,
+        );
+        if ($news) {
+            $this->template->load('frontend', 'news/view', $data);
+        } else {
+            $this->template->load('frontend', 'frontend/404', $data);
+        }
     }
 }
