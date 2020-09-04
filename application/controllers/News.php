@@ -267,4 +267,38 @@ class News extends CI_Controller
         }
         echo json_encode($res);
     }
+
+    function delete()
+    {
+        if (!array_intersect(array($this->data['menu_allow'] . '_delete'), $this->data['user_allow_menu'])) {
+            $res = array(
+                'is_success' => false,
+                'message' => "User Tidak Memiliki Hak Akses",
+            );
+            echo json_encode($res);
+            exit;
+        }
+
+        $news_id = $this->input->post('nid');
+        $news_slug = $this->input->post('nslug');
+
+        $data['cond'] = array(
+            "news_id" => $news_id,
+            "news_slug" => $news_slug,
+        );
+
+        if ($this->news->deleteData($data)) {
+            $res = array(
+                'is_success' => true,
+                'message' => "Berhasil Menghapus News",
+            );
+        } else {
+            $err = $this->db->error();
+            $res = array(
+                'is_success' => false,
+                'message' =>  $err
+            );
+        }
+        echo json_encode($res);
+    }
 }

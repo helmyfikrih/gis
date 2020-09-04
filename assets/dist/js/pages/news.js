@@ -107,7 +107,7 @@ $(function () {
 	});
 });
 
-function deleteData(uid, uname) {
+function deleteData(nid, nslug) {
 	Swal.fire({
 		title: "Apakah Anda Yakin?",
 		text: "Data akan dihapus secara permanen dan tidak dapat dikembalikan.",
@@ -118,13 +118,12 @@ function deleteData(uid, uname) {
 		confirmButtonText: "Yes",
 	}).then((result) => {
 		if (result.value) {
-			var myForm = $("#form")[0];
 			$.ajax({
-				url: `${base_url}users/delete`,
+				url: `${base_url}news/delete`,
 				type: "POST",
 				data: {
-					uid: uid,
-					uname: uname,
+					nid: nid,
+					nslug: nslug,
 				},
 				dataType: "json",
 				success: function (data) {
@@ -132,7 +131,6 @@ function deleteData(uid, uname) {
 					if (response.is_success === true) {
 						Swal.fire({
 							title: response.message,
-							// text: response.message,
 							icon: "success",
 						});
 					} else {
