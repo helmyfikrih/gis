@@ -81,6 +81,7 @@ if (!function_exists('getSessionData')) {
         );
         $ci->db->select('u.user_username, u.user_email, u.role_id, u.user_status, r.role_name, u.user_id, ud.*');
         $ci->db->from('gis_user u');
+        $ci->db->where($data['cond']);
         $ci->db->join('gis_user_role r', 'r.role_id=u.role_id');
         $ci->db->join('gis_user_detail ud', 'u.user_id=ud.user_id', 'left');
         $res = $ci->db->get()->result();
