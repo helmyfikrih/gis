@@ -47,6 +47,23 @@
                                        <div class="col-md-12">
                                            <fieldset>
                                                <div class="row">
+                                                   <!-- <div class="col-md-6">
+                                                       <div class="form-group">
+                                                           <label>Bottle <span class="red">*</span></label>
+                                                           <input name="orderBottle_1" id="orderBottle_1" type="text" class="form-control">
+                                                           <input name="orderBottle_2" id="orderBottle_2" type="text" class="form-control">
+                                                           <input name="orderBottle_3" id="orderBottle_3" type="text" class="form-control">
+                                                       </div>
+                                                   </div>
+                                                   <div class="col-md-6">
+                                                       <div class="form-group">
+                                                           <label>carton <span class="red">*</span></label>
+                                                           <input name="orderCarton_1" id="orderCarton_1" type="text" class="form-control">
+                                                           <input name="orderCarton_2" id="orderCarton_2" type="text" class="form-control">
+                                                           <input name="orderCarton_3" id="orderCarton_3" type="text" class="form-control">
+                                                       </div>
+                                                   </div>
+                                                   <button type="button" onclick="mappingData()">MAPPING</button> -->
                                                    <div class="col-md-6">
                                                        <div class="form-group">
                                                            <label>Username <span class="red">*</span></label>
