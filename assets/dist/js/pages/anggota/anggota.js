@@ -21,7 +21,7 @@ $(function () {
 			},
 		],
 		ajax: {
-			url: `${base_url}members_registration/getList`,
+			url: `${base_url}anggota/getList`,
 			type: "POST",
 			data: function (d) {
 				// d.id_region = $('#region').val();
@@ -46,7 +46,7 @@ function view(id, email) {
 			id: id,
 			email: email,
 		},
-		url: `${base_url}members_registration/getOne`,
+		url: `${base_url}anggota/getOne`,
 		dataType: "json",
 		success: function (e) {
 			$("#footer-view").html("");
@@ -135,7 +135,7 @@ function view(id, email) {
                              <tr>
                             <th>File Registration :</th>
                             <td>
-                               ${attachment}
+                               ${attachment} 
                             </td>
                         </tr>
 						</tbody>
@@ -144,7 +144,7 @@ function view(id, email) {
 				 </div>
 				 <div class="col-md-6 col-sm-12">
                  <div id="map">
-
+                 
                  </div>
 				 </div>
 				 </div>
@@ -186,7 +186,7 @@ function approval(approval, email, code) {
 	}).then((result) => {
 		if (result.value) {
 			$.ajax({
-				url: `${base_url}members_registration/approval`,
+				url: `${base_url}anggota/approval`,
 				type: "POST",
 				data: {
 					approval: approval,
@@ -284,4 +284,48 @@ function codeAddress(adress) {
 			}
 		}
 	);
+}
+
+function deleteData(user_id, register_id) {
+	Swal.fire({
+		title: "Apakah Anda Yakin?",
+		text: "Data akan dihapus secara permanen dan tidak dapat dikembalikan.",
+		icon: "question",
+		showCancelButton: true,
+		confirmButtonColor: "#d33",
+		cancelButtonColor: "#3085d6",
+		confirmButtonText: "Yes",
+	}).then((result) => {
+		if (result.value) {
+			$.ajax({
+				url: `${base_url}anggota/delete`,
+				type: "POST",
+				data: {
+					user_id: user_id,
+					register_id: register_id,
+				},
+				dataType: "json",
+				success: function (data) {
+					response = jQuery.parseJSON(JSON.stringify(data));
+					if (response.is_success === true) {
+						Swal.fire({
+							title: response.message,
+							icon: "success",
+						});
+					} else {
+						Swal.fire({
+							title: "Warning",
+							text: response.message,
+							icon: "warning",
+						});
+					}
+					$("#datatables").DataTable().ajax.reload(null, false);
+				},
+				error: function (xhr, status, error) {
+					Swal.fire({ title: "Error", text: error, icon: "error" });
+					$("#datatables").DataTable().ajax.reload(null, false);
+				},
+			});
+		}
+	});
 }
