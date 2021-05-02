@@ -15,10 +15,6 @@ function setPosition(position) {
 	$("#curr_lng").val(position.coords.longitude);
 	user_lat = position.coords.latitude;
 	user_lng = position.coords.longitude;
-<<<<<<< HEAD
-	console.log(user_lat);
-=======
->>>>>>> 2504cfeeaa28e89ad0247a179e8dcb749312c5fc
 	initMap(user_lat, user_lng);
 }
 
@@ -56,11 +52,7 @@ function getDirection(start, end) {
 	});
 }
 
-<<<<<<< HEAD
-function initMap(user_lat = null, user_lng = null) {
-=======
 function initMap(user_lat = null, user_lng = null, data = null) {
->>>>>>> 2504cfeeaa28e89ad0247a179e8dcb749312c5fc
 	var map = new google.maps.Map(document.getElementById("map"), {
 		zoom: 10,
 		center: new google.maps.LatLng(user_lat, user_lng),
