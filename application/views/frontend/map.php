@@ -30,9 +30,9 @@
    					<h4>Search</h4>
    					<div class="side_bar_search">
    						<div class="input-group stylish-input-group">
-   							<input class="form-control" placeholder="Search" type="text" />
-   							<span class="input-group-addon">
-   								<button type="submit">
+   							<input class="form-control" placeholder="Search" id="f_search" type="text" />
+   							<span class="input-group-addon" onclick="filter_persebaran()" style="cursor: pointer;">
+   								<button type="button" style="cursor: pointer;">
    									<i class="fa fa-search" aria-hidden="true"></i>
    								</button>
    							</span>
@@ -57,7 +57,7 @@
    				<div class="side_bar_blog">
    					<h4>KOTA</h4>
    					<div class="categary">
-   						<select class="form-control select2 select2-blue" name="filter_kota" id="filter_kota">
+   						<select class="form-control select2 select2-blue" name="f_kota" id="f_kota">
    							<option value="0" selected>ALL</option>
    							<?php foreach ($select_kota as $kota) : ?>
    								<option value="<?= $kota->kota_id ?>"><?= strtoupper($kota->kota_name) ?></option>
@@ -71,7 +71,7 @@
    				<div class="side_bar_blog">
    					<h4>KECAMATAN</h4>
    					<div class="categary">
-   						<select class="form-control select2 select2-blue" name="filter_kec" id="filter_kec">
+   						<select class="form-control select2 select2-blue" name="f_kecamatan" id="f_kecamatan">
    							<option value="0" selected>ALL</option>
    						</select>
 

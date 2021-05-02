@@ -33,4 +33,29 @@ class Map extends CI_Controller
 		);
 		$this->template->load('frontend', 'frontend/map', $data);
 	}
+
+	public function filter()
+	{
+		$this->load->model('Gis_model', 'gis');
+		$f_search = trim($this->input->post('f_search'));
+		$f_kota = $this->input->post('f_kota');
+		$f_kecamatan = $this->input->post('f_kecamatan');
+		$cond = array();
+		if ($f_search) {
+			$cond["dd.developer_name LIKE '%$f_search%' OR dd.developer_address LIKE '%$f_search%'"] = null;
+		}
+		if ($f_kota && ($f_kota != '0' || $f_kota != '0')) {
+			$cond['k.kota_id'] = $f_kota;
+		}
+		if ($f_kecamatan && ($f_kecamatan != '0' || $f_kecamatan != '0')) {
+			$cond['k.kecamatan_id'] = $f_kecamatan;
+		}
+
+		$data = $this->gis->get_persebaran($cond);
+		echo json_encode(
+			array(
+				'data' => $data
+			)
+		);
+	}
 }

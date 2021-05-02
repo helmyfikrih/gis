@@ -15,7 +15,10 @@ function setPosition(position) {
 	$("#curr_lng").val(position.coords.longitude);
 	user_lat = position.coords.latitude;
 	user_lng = position.coords.longitude;
+<<<<<<< HEAD
 	console.log(user_lat);
+=======
+>>>>>>> 2504cfeeaa28e89ad0247a179e8dcb749312c5fc
 	initMap(user_lat, user_lng);
 }
 
@@ -53,7 +56,11 @@ function getDirection(start, end) {
 	});
 }
 
+<<<<<<< HEAD
 function initMap(user_lat = null, user_lng = null) {
+=======
+function initMap(user_lat = null, user_lng = null, data = null) {
+>>>>>>> 2504cfeeaa28e89ad0247a179e8dcb749312c5fc
 	var map = new google.maps.Map(document.getElementById("map"), {
 		zoom: 10,
 		center: new google.maps.LatLng(user_lat, user_lng),
@@ -93,38 +100,44 @@ function initMap(user_lat = null, user_lng = null) {
 		null /* anchor is bottom center of the scaled image */,
 		new google.maps.Size(40, 40)
 	);
+	console.log(data);
 	var user_position = new google.maps.LatLng(user_lat, user_lng);
-	for (i = 0; i < locations.length; i++) {
-		marker = new google.maps.Marker({
-			position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-			map: map,
-			icon: place_marker,
-		});
+	if (data) {
+		$.each(data, function (key, value) {
+			marker = new google.maps.Marker({
+				position: new google.maps.LatLng(
+					value.developer_lat,
+					value.developer_lng
+				),
+				map: map,
+				icon: place_marker,
+			});
 
-		var target_position = new google.maps.LatLng(
-			locations[i][1],
-			locations[i][2]
-		);
-		var distance = getDistance(user_position, target_position);
-		var btn_direction = `<a href="javascript:;" onclick="getDirection('${
-			user_lat + "," + user_lng
-		}','${
-			locations[i][1] + "," + locations[i][2]
-		}')"><i class="fa fa-search" aria-hidden="true"></i> Get Direction</a>`;
-		var info_window_contnet = ` Location Name: ${locations[i][0]} 
+			var target_position = new google.maps.LatLng(
+				value.developer_lat,
+				value.developer_lng
+			);
+			var distance = getDistance(user_position, target_position);
+			var btn_direction = `<a href="javascript:;" onclick="getDirection('${
+				user_lat + "," + user_lng
+			}','${
+				value.developer_lat + "," + value.developer_lng
+			}')"><i class="fa fa-search" aria-hidden="true"></i> Get Direction</a>`;
+			var info_window_contnet = ` Location Name: ${value.developer_name} 
 		<br> Distance: ${Math.round(distance)} M From Your Location
 		<br> ${btn_direction}
 		`;
-		google.maps.event.addListener(
-			marker,
-			"click",
-			(function (marker, i) {
-				return function () {
-					infowindow.setContent(info_window_contnet);
-					infowindow.open(map, marker);
-				};
-			})(marker, i)
-		);
+			google.maps.event.addListener(
+				marker,
+				"click",
+				(function (marker, i) {
+					return function () {
+						infowindow.setContent(info_window_contnet);
+						infowindow.open(map, marker);
+					};
+				})(marker, i)
+			);
+		});
 	}
 	// var image = "images/it_service/location_icon_map_cont.png";
 
@@ -136,7 +149,7 @@ function initMap(user_lat = null, user_lng = null) {
 }
 
 function getKecamatan(kota) {
-	$("#filter_kec option").remove();
+	$("#f_kecamatan option").remove();
 	$.ajax({
 		url: `${base_url}gis/getKecamatan`,
 		type: "POST",
@@ -145,9 +158,9 @@ function getKecamatan(kota) {
 		},
 		dataType: "json",
 		success: function (data) {
-			$("#filter_kec").append(`<option value="0">ALL</option>`);
+			$("#f_kecamatan").append(`<option value="0">ALL</option>`);
 			$.each(data, function (key, value) {
-				$("#filter_kec").append(
+				$("#f_kecamatan").append(
 					`<option value="${value.kecamatan_id}">${value.kecamatan_name}</option>`
 				);
 			});
@@ -164,9 +177,14 @@ function getKecamatan(kota) {
 }
 
 // change handler
-$("#filter_kota").on("change", function (e) {
+$("#f_kota").on("change", function (e) {
 	// Do something
-	getKecamatan($("#filter_kota").val());
+	getKecamatan($("#f_kota").val());
+});
+
+$(".select2").on("change", function (e) {
+	// Do something
+	filter_persebaran();
 });
 
 var rad = function (x) {
@@ -187,3 +205,30 @@ var getDistance = function (p1, p2) {
 	var d = R * c;
 	return d; // returns the distance in meter
 };
+
+function filter_persebaran() {
+	var f_search = $("#f_search").val();
+	var f_kota = $("#f_kota").val();
+	var f_kecamatan = $("#f_kecamatan").val();
+	$.ajax({
+		url: `${base_url}frontend/map/filter`,
+		type: "POST",
+		data: {
+			f_search: f_search,
+			f_kota: f_kota,
+			f_kecamatan: f_kecamatan,
+		},
+		dataType: "json",
+		success: function (result) {
+			initMap(user_lat, user_lng, result.data);
+		},
+		error: function (xhr, status, error) {
+			Swal.fire({
+				title: error,
+				// text: response.message,
+				icon: "error",
+			});
+		},
+		timeout: 300000, // sets timeout to 5 minutes
+	});
+}
