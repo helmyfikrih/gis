@@ -19,40 +19,93 @@ function setPosition(position) {
 }
 
 function getDirection(start, end) {
-	console.log($("#curr_lat").val());
-	directionsDisplay = new google.maps.DirectionsRenderer();
+	$("#directions").html("");
 	var myOptions = {
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 	};
-	map = new google.maps.Map(document.getElementById("map"), myOptions);
-	directionsDisplay.setMap(map);
+	var map = new google.maps.Map(document.getElementById("map"), myOptions);
+	// var map = new google.maps.Map(document.getElementById("map"), {
+	// 	zoom: 12,
+	// 	center: { lat: -6.353525, lng: 106.831629 },
+	// });
+
 	var directionsService = new google.maps.DirectionsService();
+	var directionsRenderer = new google.maps.DirectionsRenderer({
+		draggable: true,
+		map: map,
+		panel: document.getElementById("directions"),
+	});
+
+	directionsRenderer.addListener("directions_changed", function () {
+		computeTotalDistance(directionsRenderer.getDirections());
+	});
+	// var myLatLng32 = new google.maps.LatLng({lat: -6.168428, lng: 106.827406});
+
+	displayRoute(start, end, directionsService, directionsRenderer);
+
+	// console.log($("#curr_lat").val());
+	// directionsDisplay = new google.maps.DirectionsRenderer();
+	// var myOptions = {
+	// 	mapTypeId: google.maps.MapTypeId.ROADMAP,
+	// };
+	// map = new google.maps.Map(document.getElementById("map"), myOptions);
+	// directionsDisplay.setMap(map);
+	// var directionsService = new google.maps.DirectionsService();
 	// var start = `${$("#curr_lat").val()}, ${$("#curr_lng").val()}`;
 	// var end = "-6.2008406, 106.7987143";
-	var request = {
-		origin: start,
-		destination: end,
-		travelMode: google.maps.DirectionsTravelMode.DRIVING,
-	};
-	directionsService.route(request, function (response, status) {
-		if (status == google.maps.DirectionsStatus.OK) {
-			directionsDisplay.setDirections(response);
-			var myRoute = response.routes[0];
-			var txtDir = "";
-			console.log(myRoute);
-			txtDir +=
-				"Jarak Tempuh Dari Lokasi Anda <b>" +
-				myRoute.legs[0].distance.text +
-				" </b><br/>";
-			for (var i = 0; i < myRoute.legs[0].steps.length; i++) {
-				txtDir += myRoute.legs[0].steps[i].instructions + "<br />";
+	// var request = {
+	// 	origin: start,
+	// 	destination: end,
+	// 	travelMode: google.maps.DirectionsTravelMode.DRIVING,
+	// };
+	// directionsService.route(request, function (response, status) {
+	// 	if (status == google.maps.DirectionsStatus.OK) {
+	// 		directionsDisplay.setDirections(response);
+	// 		var myRoute = response.routes[0];
+	// 		var txtDir = "";
+	// 		console.log(myRoute);
+	// 		txtDir +=
+	// 			"Jarak Tempuh Dari Lokasi Anda <b>" +
+	// 			myRoute.legs[0].distance.text +
+	// 			" </b><br/>";
+	// 		for (var i = 0; i < myRoute.legs[0].steps.length; i++) {
+	// 			txtDir += myRoute.legs[0].steps[i].instructions + "<br />";
+	// 		}
+	// 		document.getElementById("directions").innerHTML = txtDir;
+	// 	}
+	// });
+}
+
+function displayRoute(origin, destination, service, display) {
+	service.route(
+		{
+			origin: origin,
+			destination: destination,
+			travelMode: "DRIVING",
+			avoidTolls: true,
+		},
+		function (response, status) {
+			if (status === "OK") {
+				display.setDirections(response);
+			} else {
+				alert("Could not display directions due to: " + status);
 			}
-			document.getElementById("directions").innerHTML = txtDir;
 		}
-	});
+	);
+}
+
+function computeTotalDistance(result) {
+	var total = 0;
+	var myroute = result.routes[0];
+	for (var i = 0; i < myroute.legs.length; i++) {
+		total += myroute.legs[i].distance.value;
+	}
+	total = total / 1000;
+	document.getElementById("total").innerHTML = total + " km";
 }
 
 function initMap(user_lat = null, user_lng = null, data = null) {
+	$("#directions").html("");
 	var map = new google.maps.Map(document.getElementById("map"), {
 		zoom: 10,
 		center: new google.maps.LatLng(user_lat, user_lng),
