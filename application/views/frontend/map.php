@@ -91,9 +91,12 @@
    				<div class="col-md-12">
    					<div class="full">
    						<div class="tab_bar_section">
-   							<ul class="nav nav-tabs" role="tablist">
+   							<ul class="nav nav-tabs" id="tabMap" role="tablist">
    								<li class="nav-item">
-   									<a class="nav-link active" data-toggle="tab" href="#direction">Direction</a>
+   									<a class="nav-link" data-toggle="tab" href="#result">Result</a>
+   								</li>
+   								<li class="nav-item">
+   									<a class="nav-link" data-toggle="tab" href="#direction">Direction</a>
    								</li>
    								<li class="nav-item">
    									<a class="nav-link" data-toggle="tab" href="#reviews">Reviews (2)</a>
@@ -101,7 +104,12 @@
    							</ul>
    							<!-- Tab panes -->
    							<div class="tab-content">
-   								<div id="direction" class="tab-pane active">
+   								<div id="result" class="tab-pane">
+   									<div class="product_desc">
+   										<div id="result_filter"></div>
+   									</div>
+   								</div>
+   								<div id="direction" class="tab-pane">
    									<div class="product_desc">
    										<div id="directions"></div>
    									</div>
@@ -202,5 +210,5 @@
 
    <!-- google map js -->
    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap"></script> -->
-   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAl9LtfJKn0c-q5ebjAaJfil1ghK6J6TSk&language=id&region=id"></script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAl9LtfJKn0c-q5ebjAaJfil1ghK6J6TSk&language=id&region=id&libraries=geometry"></script>
    <!-- end google map js -->
