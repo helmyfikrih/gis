@@ -10,6 +10,7 @@ $(function () {
 	$(".select2").select2({
 		placeholder: "Pilih salah satu...",
 		allowClear: true,
+		theme: "bootstrap4",
 	});
 	$.validator.setDefaults({
 		submitHandler: function (form) {

@@ -105,6 +105,17 @@
 													</div>
 													<div class="col-md-12">
 														<div class="form-group">
+															<label>Kategori Developer</label>
+															<select name="kategori_developer" id="kategori_developer" class="form-control select2">
+																<option></option>
+																<?php foreach ($select_kategori as $kategori) { ?>
+																	<option value="<?= $kategori->kategori_developer_id ?>"><?= $kategori->kategori_developer_name ?></option>
+																<?php } ?>
+															</select>
+														</div>
+													</div>
+													<div class="col-md-12">
+														<div class="form-group">
 															<label>Address <span class="red">*</span></label>
 															<textarea name="address" id="address" class="form-control"><?= $edit['developer_address'] ?></textarea>
 															<input name="loc_lat" id="loc_lat" type="text" readonly hidden class="form-control" value="<?= $edit['developer_lat'] ?>">
@@ -219,5 +230,5 @@
 <!-- /.content-wrapper -->
 
 
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAl9LtfJKn0c-q5ebjAaJfil1ghK6J6TSk&language=id&region=id"></script> -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk=id&region=id"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAl9LtfJKn0c-q5ebjAaJfil1ghK6J6TSk&language=id&region=id"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk=id&region=id"></script> -->

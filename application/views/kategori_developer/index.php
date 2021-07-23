@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Data Kota</h1>
+                    <h1 class="m-0 text-dark">Data Kategori Developer</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Settings</a></li>
-                        <li class="breadcrumb-item active">Data Kota</li>
+                        <li class="breadcrumb-item active">Data Kategori Developer</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -25,7 +25,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title text-left">Data Kota</h3>
+                            <h3 class="card-title text-left">Data Kategori Developer</h3>
                             <div class="text-right">
                                 <?php if ((array_intersect(array($menu_allow . '_create'), $user_allow_menu))) { ?>
                                     <button type="button" class="btn btn-sm btn-primary" onclick="addNew()">
@@ -40,8 +40,8 @@
                                 <thead>
                                     <tr>
                                         <th>Action</th>
-                                        <th>Kota ID</th>
-                                        <th>Kota Name</th>
+                                        <th>Kategori Developer ID</th>
+                                        <th>Kategori Developer Name</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -65,15 +65,15 @@
                     </button>
                 </div>
                 <div class="modal-body" id="modalBody">
-                    <form role="form" id="form" action="<?= base_url('data_kota/save') ?>">
+                    <form role="form" id="form" action="<?= base_url('kategori_developer/save') ?>">
                         <div class="row">
                             <div class="col-sm-12">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <label>Kota Name</label>
-                                    <input type="text" name="kota_id" id="kota_id" class="form-control" placeholder="Kota Name..." hidden>
-                                    <input type="text" name="kota_nameOld" id="kota_nameOld" class="form-control" placeholder="Kota Name..." hidden>
-                                    <input type="text" name="kota_name" id="kota_name" class="form-control" placeholder="Kota Name...">
+                                    <label>Kategori Developer Name</label>
+                                    <input type="text" name="kota_id" id="kota_id" class="form-control" placeholder="Kategori Developer Name..." hidden>
+                                    <input type="text" name="kota_nameOld" id="kota_nameOld" class="form-control" placeholder="Kategori Developer Name..." hidden>
+                                    <input type="text" name="kota_name" id="kota_name" class="form-control" placeholder="Kategori Developer Name...">
                                 </div>
 
                             </div>

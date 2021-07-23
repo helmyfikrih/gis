@@ -164,6 +164,7 @@ class Anggota extends CI_Controller
 			'js_path' => $this->js_path,
 			'menu_body' => $this->menu_body,
 			'select_kota' => getSelectKota(),
+			'select_kategori' => getSelectKategori(),
 			'menu_allow' => $this->data['menu_allow'],
 			'user_allow_menu' => $this->data['user_allow_menu'],
 		);
@@ -265,6 +266,7 @@ class Anggota extends CI_Controller
 		$register_name = $this->input->post('developer_name');
 		$kota = $this->input->post('kota');
 		$kecamatan_id = $this->input->post('kecamatan');
+		$kategori_developer_id = $this->input->post('kategori_developer_id') ? $this->input->post('kategori_developer_id') : null;
 		$register_address = $this->input->post('address');
 		$register_lat = $this->input->post('loc_lat');
 		$register_lng = $this->input->post('loc_lng');
@@ -516,6 +518,7 @@ class Anggota extends CI_Controller
 		$user_id = $this->db->insert_id();
 		$data['data_developer_detail'] = array(
 			'kecamatan_id' => $getData[0]['kecamatan_id'],
+			'kategori_developer_id' => $kategori_developer_id,
 			'user_id' => $user_id,
 			'register_id' => $getData[0]['register_id'],
 			'developer_name' => $getData[0]['register_name'],
@@ -648,6 +651,7 @@ class Anggota extends CI_Controller
 		$register_name = $this->input->post('developer_name');
 		$kota = $this->input->post('kota');
 		$kecamatan_id = $this->input->post('kecamatan');
+		$kategori_developer_id = $this->input->post('kategori_developer_id') ? $this->input->post('kategori_developer_id') : null;
 		$register_address = $this->input->post('address');
 		$register_lat = $this->input->post('loc_lat');
 		$register_lng = $this->input->post('loc_lng');
@@ -657,6 +661,7 @@ class Anggota extends CI_Controller
 		$uniqid = uniqid('gis_', true);
 		$data['data_developer_detail'] = array(
 			'kecamatan_id' => $kecamatan_id,
+			'kategori_developer_id' => $kategori_developer_id,
 			'developer_name' => $register_name,
 			'developer_email' => $register_email,
 			'developer_phone' => $register_phone,
@@ -956,6 +961,7 @@ class Anggota extends CI_Controller
 			'js_path' => $this->js_path,
 			'menu_body' => $this->menu_body,
 			'select_kota' => getSelectKota(),
+			'select_kategori' => getSelectKategori(),
 			'menu_allow' => $this->data['menu_allow'],
 			'user_allow_menu' => $this->data['user_allow_menu'],
 		);

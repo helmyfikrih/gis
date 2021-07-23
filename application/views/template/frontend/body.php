@@ -1,7 +1,7 @@
  <body id="default_theme" class="it_shop_detail">
      <!-- loader -->
      <div class="bg_load">
-         <img class="loader_animation" src="<?= base_url() ?>assets/frontend/images/loaders/loader_1.png" alt="#" />
+         <img class="loader_animation" src="<?= base_url() ?>assets/frontend/images/logos/logo_rei.png" alt="#" />
      </div>
      <!-- end loader -->
      <!-- header -->
@@ -14,7 +14,7 @@
                      <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                          <!-- logo start -->
                          <div class="logo">
-                             <a href="<?= base_url() ?>"><img src="<?= base_url() ?>assets/frontend/images/logos/it_logo.png" alt="logo" /></a>
+                             <a href="<?= base_url() ?>"><img src="<?= base_url() ?>assets/frontend/images/logos/logo_rei.png" alt="logo" /></a>
                          </div>
                          <!-- logo end -->
                      </div>

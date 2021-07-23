@@ -9,6 +9,12 @@
                <li>
                    <a href="<?= base_url('news/list') ?>">News</a>
                </li>
+               <li>
+                   <a href="<?= base_url('galeri/list') ?>">Galeri</a>
+               </li>
+               <li>
+                   <a href="<?= base_url('about/') ?>">Tentang Sistem</a>
+               </li>
                <?php if ($this->session->userdata('logged_in')) {  ?>
                    <li><a href="<?= base_url('home') ?>">User Panel</a></li>
                    <li><a href="<?= base_url('auth/verify/logout') ?>">Logout</a></li>

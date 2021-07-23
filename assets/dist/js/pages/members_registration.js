@@ -159,7 +159,9 @@ function view(id, email) {
             ${btn_approval}
             `);
 			initialize();
-			if (!lat & !lng) codeAddress(map_address);
+			console.log(map_address)
+			// if (!lat & !lng) 
+			codeAddress(map_address);
 			google.maps.event.trigger(map, "resize");
 		},
 		error: function (xhr, status, error) {
@@ -223,7 +225,11 @@ function approval(approval, email, code) {
 
 function initialize(lat, lng) {
 	geocoder = new google.maps.Geocoder();
-	var latlng = new google.maps.LatLng(-6.2295712, 106.759478);
+	if(lat && lng) {
+		var latlng = new google.maps.LatLng(lat, lng);
+	} else {
+		var latlng = new google.maps.LatLng(-6.2295712, 106.759478);
+	}
 	var mapOptions = {
 		zoom: 12,
 		center: latlng,

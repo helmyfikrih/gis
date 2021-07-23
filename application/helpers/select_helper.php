@@ -20,3 +20,12 @@ if (!function_exists('getSelectKota')) {
         return $ci->db->query($q)->result();
     }
 }
+if (!function_exists('getSelectKategori')) {
+    function getSelectKategori()
+    {
+        $ci = &get_instance();
+        $ci->load->database();
+        $q  = "SELECT * FROM gis_kategori_developer WHERE 1=1";
+        return $ci->db->query($q)->result();
+    }
+}

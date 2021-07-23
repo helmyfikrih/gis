@@ -334,7 +334,7 @@ class Register extends CI_Controller
 			);
 		}
 		$this->load->helper('email');
-		$url = base_url('auth/register/verify/' . $uniqid . '/' . $register_username);
+		$url = base_url('auth/register/verify/' . urlencode($uniqid) . '/' . urlencode($register_username));
 		$message = "Hi $register_name, <br> Terimakasih Telah Melakukan Registrasi.<br><br>Silahkan klik verifikasi untuk mengaktifkan akun anda.<br/>
         <a href='$url'>Verifikasi</a>";
 		// $message = $this->load->view('template/email', $text, TRUE);
@@ -348,8 +348,8 @@ class Register extends CI_Controller
 		$username = $this->uri->segment(5);
 
 		$cond = array(
-			'register_uniq_code' => $uniqid,
-			'register_username' => $username,
+			'register_uniq_code' => urldecode($uniqid),
+			'register_username' => urldecode($username),
 			'register_status' => 2,
 		);
 

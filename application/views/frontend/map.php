@@ -42,7 +42,8 @@
    				<div class="side_bar_blog">
    					<h4>LEGENDA</h4>
    					<span>
-   						<p><i class="fa fa-home" style="color: red;"></i> adas</p>
+   						<p><img src="<?=base_url('assets/frontend/images/it_service/user_position.png')?>" width="40px" alt=""> Posisi Saat Ini</p>
+   						<p><img src="<?=base_url('assets/frontend/images/it_service/location_icon_map_cont.png')?>" width="40px" alt=""> Posisi Developer</p>
    					</span>
    				</div>
    				<div class="side_bar_blog">
@@ -98,9 +99,9 @@
    								<li class="nav-item">
    									<a class="nav-link" data-toggle="tab" href="#direction">Direction</a>
    								</li>
-   								<li class="nav-item">
+   								<!-- <li class="nav-item">
    									<a class="nav-link" data-toggle="tab" href="#reviews">Reviews (2)</a>
-   								</li>
+   								</li> -->
    							</ul>
    							<!-- Tab panes -->
    							<div class="tab-content">
