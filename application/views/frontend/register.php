@@ -49,7 +49,7 @@
                                                <div class="row">
                                                    <!-- <div class="col-md-6">
                                                        <div class="form-group">
-                                                           <label>Bottle <span class="red">*</span></label>
+                                                           <label>Bottle <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="orderBottle_1" id="orderBottle_1" type="text" class="form-control">
                                                            <input name="orderBottle_2" id="orderBottle_2" type="text" class="form-control">
                                                            <input name="orderBottle_3" id="orderBottle_3" type="text" class="form-control">
@@ -57,7 +57,7 @@
                                                    </div>
                                                    <div class="col-md-6">
                                                        <div class="form-group">
-                                                           <label>carton <span class="red">*</span></label>
+                                                           <label>carton <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="orderCarton_1" id="orderCarton_1" type="text" class="form-control">
                                                            <input name="orderCarton_2" id="orderCarton_2" type="text" class="form-control">
                                                            <input name="orderCarton_3" id="orderCarton_3" type="text" class="form-control">
@@ -66,37 +66,37 @@
                                                    <button type="button" onclick="mappingData()">MAPPING</button> -->
                                                    <div class="col-md-6">
                                                        <div class="form-group">
-                                                           <label>Username <span class="red">*</span></label>
+                                                           <label>Username <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="username" id="username" type="text" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-6">
                                                        <div class="form-group">
-                                                           <label>Email <span class="red">*</span></label>
+                                                           <label>Email <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="email" id="email" type="email" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-6">
                                                        <div class="form-group">
-                                                           <label>Password <span class="red">*</span></label>
+                                                           <label>Password <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="password" id="password" type="password" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-6">
                                                        <div class="form-group">
-                                                           <label>Ulangi Password <span class="red">*</span></label>
+                                                           <label>Ulangi Password <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="password_confirm" id="password_confirm" type="password" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>Nama Developer</label>
+                                                           <label>Nama Developer<span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="developer_name" id="developer_name" type="text" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>Kota Developer</label>
+                                                           <label>Kota Developer<span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <select name="kota" id="kota" class="form-control select2bs4 select-form">
                                                                <option></option>
                                                                <?php foreach ($select_kota as $kota) { ?>
@@ -107,14 +107,14 @@
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>Kecamatan Developer</label>
+                                                           <label>Kecamatan Developer<span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <select name="kecamatan" id="kecamatan" class="form-control select2bs4 select-form">
                                                            </select>
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>Address <span class="red">*</span></label>
+                                                           <label>Address <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <textarea name="address" id="address" class="form-control"></textarea>
                                                            <input name="loc_lat" id="loc_lat" type="text" readonly hidden class="form-control">
                                                            <input name="loc_lng" id="loc_lng" type="text" readonly hidden class="form-control">
@@ -128,13 +128,13 @@
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>Phone <span class="red">*</span></label>
+                                                           <label>Phone <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="phone" id="phone" type="text" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>Rekomendasi Oleh <span class="red">* (Pisahkan Dengan Koma)</span></label>
+                                                           <label>Rekomendasi Oleh <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i> (Pisahkan Dengan Koma)</span></label>
                                                            <input name="recomendation" id="recomendation" type="text" class="form-control">
                                                        </div>
                                                    </div>
@@ -155,62 +155,62 @@
                                                <div class="row">
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>1. Pasphoto Direktur Utama, ukuran 4 x6 <span class="red">*</span></label>
+                                                           <label>1. Pasphoto Direktur Utama, ukuran 4 x6 <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="f_pasphoto" id="pasphoto" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>2. Scan/File KTP Direktur Utama <span class="red">*</span></label>
+                                                           <label>2. Scan/File KTP Direktur Utama <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="f_ktp" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>3. Scan/File Akte Pendirian Perusahaan / akte perubahab yang menyebutkan bidang usaha Realestat / sebagai pengembang <span class="red">*</span></label>
+                                                           <label>3. Scan/File Akte Pendirian Perusahaan / akte perubahab yang menyebutkan bidang usaha Realestat / sebagai pengembang <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="f_akte" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>4. Scan/File Surat Keterangan Domisili Perusahaan di Jakarta <span class="red">*</span></label>
+                                                           <label>4. Scan/File Surat Keterangan Domisili Perusahaan di Jakarta <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="f_keterangan" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>5. Scan/File Nomor Pokok Wajib Pajak ( NPWP ) <span class="red">*</span></label>
+                                                           <label>5. Scan/File Nomor Pokok Wajib Pajak ( NPWP ) <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="f_npwp" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>6. Scan/File Surat Ijin Usaha Perdagangan ( SIUP ) <span class="red">*</span></label>
+                                                           <label>6. Scan/File Surat Ijin Usaha Perdagangan ( SIUP ) <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="f_siup" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>7. Scan/File Tanda Daftar Perusahaan ( TDP ) <span class="red">*</span></label>
+                                                           <label>7. Scan/File Tanda Daftar Perusahaan ( TDP ) <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="f_tdp" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>8. File Susunan Dewan Komisaris / Direksi ( Nama & Jabatan ) serta struktur Organisasi Perusahaan <span class="red">*</span></label>
+                                                           <label>8. File Susunan Dewan Komisaris / Direksi ( Nama & Jabatan ) serta struktur Organisasi Perusahaan <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="f_susunan_dewan" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
-                                                           <label>9. Scan/File Surat pernyataan kesediaan untuk mematuhi semua ketentuan / peraturan yang berlaku, dan menjalankan etika profesi sesuai Saptabrata REI (dibuat diatas kop surat perusahaan & ditandatangani diatas meterai). <span class="red">*</span></label>
+                                                           <label>9. Scan/File Surat pernyataan kesediaan untuk mematuhi semua ketentuan / peraturan yang berlaku, dan menjalankan etika profesi sesuai Saptabrata REI (dibuat diatas kop surat perusahaan & ditandatangani diatas meterai). <span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span></label>
                                                            <input name="f_pernyataan" type="file" class="form-control">
                                                        </div>
                                                    </div>
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <input name="agreement" id="agreement" type="checkbox">
-                                                           <span class="crte-ac">Saya Bersedia Mengikuti Kebijakan dan Ketentuan Yang Berlaku.</span> </div>
+                                                           <span class="crte-ac">Saya Bersedia Mengikuti Kebijakan dan Ketentuan Yang Berlaku.</span><span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span> </div>
                                                    </div>
                                                </div>
                                            </fieldset>
