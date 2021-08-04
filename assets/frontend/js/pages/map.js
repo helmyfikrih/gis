@@ -181,9 +181,11 @@ function initMap(user_lat = null, user_lng = null, data = null) {
 			}','${
 				value.developer_lat + "," + value.developer_lng
 			}')"><i class="fa fa-search" aria-hidden="true"></i> Get Direction</a>`;
+			var btn_portofolio = `<a href="javascript:;" onclick="getPortofolio('${value.developer_id}')"><i class="fa fa-search" aria-hidden="true"></i> Get Portofolio</a>`;
 			var info_window_contnet = ` Location Name: ${value.developer_name} 
 		<br> Straight Distance: ${Math.round(distance)} M From Your Location
 		<br> ${btn_direction}
+		<br> ${btn_portofolio}
 		`;
 			google.maps.event.addListener(
 				marker,
@@ -456,6 +458,46 @@ function calculateDistances(pt, closest, numberOfResults) {
 
 function sortByDistDM(a, b) {
 	return a.distance.value - b.distance.value;
+}
+
+function getPortofolio(id) {
+	$(".portofolio_list").html("");
+	$('#tabMap a[href="#portofolio"]').trigger('click');
+	$.ajax({
+		url: `${base_url}/portofolio/getData`,
+		type: "POST",
+		data: {
+			id: id,
+		},
+		dataType: "json",
+		success: function (data) {
+			var template = ``;
+			$.each(data.data, function (key, value) {
+				template += `
+				<div class="commant-text row">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<h5>${value.developer_portofolio_name}</h5>
+						<p>
+							<span class="c_date">${value.developer_portofolio_email}</span>
+						</p>
+						<p class="msg">
+							${value.developer_portofolio_address}
+						</p>
+					</div>
+				</div>
+				`;
+			});
+			$(".portofolio_list").html(template);
+		},
+		error: function (xhr, status, error) {
+			Swal.fire({
+				title: error,
+				// text: response.message,
+				icon: "error",
+			});
+		},
+		timeout: 300000, // sets timeout to 5 minutes
+	});
 }
 
 // google.maps.event.addDomListener(window, "load", initialize);

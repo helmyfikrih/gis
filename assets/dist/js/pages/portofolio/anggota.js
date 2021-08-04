@@ -1,0 +1,295 @@
+var geocoder;
+var map;
+var marker;
+var infowindow = new google.maps.InfoWindow({
+	size: new google.maps.Size(150, 50),
+});
+var map_address;
+var lat;
+var lng;
+$(function () {
+	var myTable = $("#datatables").DataTable({
+		autoWidth: false,
+		responsive: false,
+		bServerSide: true,
+		scrollX: true,
+		columnDefs: [
+			{
+				targets: 0,
+				className: "text-center",
+				// width: "15%",
+			},
+		],
+		ajax: {
+			url: `${base_url}portofolio/getList`,
+			type: "POST",
+			data: function (d) {
+				// d.id_region = $('#region').val();
+			},
+		},
+		initComplete: function (settings, json) {
+			$("#datatables_filter input").unbind();
+			$("#datatables_filter input").bind("keyup", function (e) {
+				if (e.keyCode == 13) {
+					myTable.search(this.value).draw();
+				}
+			});
+		},
+	});
+});
+
+function view(id, email) {
+	$("#modalView").modal("show");
+	jQuery.ajax({
+		type: "post",
+		data: {
+			id: id,
+			email: email,
+		},
+		url: `${base_url}portofolio/getOne`,
+		dataType: "json",
+		success: function (e) {
+			$("#footer-view").html("");
+			$("#body-view").html("");
+			var attachment = "";
+			var btn_approval = "";
+			$.each(e.data_register_attachment, function (key, value) {
+				attachment += `<a href='${value.register_attachment_url}' data-rel='colorbox' class='' style='padding-left:1%;padding-right:1%; border-style: solid;' target='_blank'>
+                                    <i class='fa fa-paperclip'>  ${value.register_attachment_type}</i>
+                                </a>`;
+			});
+			$.each(e.data_register, function (key, value) {
+				$(".modalHeaderText").html(`Detail User ${value.developer_portofolio_name}`);
+				var status_email = `<span class=" badge bg-warning">Menunggu Verifikasi</span>`;
+				var status_registrasi = `<span class=" badge bg-warning">Menunggu Verifikasi</span>`;
+				var email_verify_date = "";
+				var approval_date = "";
+
+				if (value.developer_portofolio_status == 1) {
+					status_registrasi = `<span class=" badge bg-success">Sudah Terverifikasi</span>`;
+				} else if (value.developer_portofolio_status == 2) {
+					btn_approval += `<button type="button" class="btn btn-danger" onclick="approval(0,'${value.developer_portofolio_email}','${value.developer_portofolio_id}')">Reject</button>&nbsp`;
+					btn_approval += `<button type="button" class="btn btn-info" onclick="approval(1,'${value.developer_portofolio_email}','${value.developer_portofolio_id}')">Approve</button> &nbsp`;
+				} else if (value.developer_portofolio_status == 0) {
+					status_registrasi = `<span class=" badge bg-danger">Ditolak</span>`;
+				}
+				$("#body-view").html(
+					`<div class="row">
+				<div class="col-md-6 col-sm-12">
+					<div class="table-responsive">
+					<table class="table">
+						<tbody>
+							<tr>
+								<th>Nama Developer :</th>
+								<td>${value.developer_portofolio_name}</td>
+							</tr>
+							<tr>
+								<th>E-mail Developer:</th>
+								<td>${value.developer_portofolio_email}</td>
+							</tr>
+							<tr>
+								<th>Telepon Developer:</th>
+								<td>${value.developer_portofolio_phone}</td>
+							</tr>
+							<tr>
+								<th>Alamat Developer :</th>
+								<td>${value.developer_portofolio_address}</td>
+							</tr>
+							<tr>
+								<th>Status Validasi:</th>
+								<td>${status_registrasi}</td>
+                            </tr>
+                             <tr>
+                        </tr>
+						</tbody>
+					</table>
+				</div>
+				 </div>
+				 <div class="col-md-6 col-sm-12">
+                 <div id="map">
+                 
+                 </div>
+				 </div>
+				 </div>
+				`
+				);
+				map_address = value.developer_portofolio_address;
+				// lat = value.developer_portofolio_lat;
+				// lng = value.developer_portofolio_lng;
+			});
+
+			$("#footer-view").html(`
+            ${btn_approval}
+            `);
+			initialize();
+			if (!lat & !lng) codeAddress(map_address);
+			google.maps.event.trigger(map, "resize");
+		},
+		error: function (xhr, status, error) {
+			Swal.fire({ title: "Error", text: error, icon: "error" });
+		},
+	});
+}
+
+function approval(approval, email, id) {
+	var text;
+	if (approval == 1 || approval == "1") {
+		text = "Approve";
+	} else {
+		text = "Reject";
+	}
+	Swal.fire({
+		title: "Apakah Anda Yakin?",
+		text: text,
+		icon: "question",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		confirmButtonText: "Yes",
+	}).then((result) => {
+		if (result.value) {
+			$.ajax({
+				url: `${base_url}portofolio/approval`,
+				type: "POST",
+				data: {
+					approval: approval,
+					email: email,
+					id: id,
+				},
+				dataType: "json",
+				success: function (data) {
+					response = jQuery.parseJSON(JSON.stringify(data));
+					if (response.is_success === true) {
+						Swal.fire({
+							title: response.message,
+							// text: response.message,
+							icon: "success",
+						});
+						$("#modalView").modal("hide");
+					} else {
+						Swal.fire({
+							title: "Warning",
+							text: response.message,
+							icon: "warning",
+						});
+					}
+					$("#datatables").DataTable().ajax.reload(null, false);
+				},
+				error: function (xhr, status, error) {
+					Swal.fire({ title: "Error", text: error, icon: "error" });
+					$("#datatables").DataTable().ajax.reload(null, false);
+				},
+			});
+		}
+	});
+}
+
+function initialize(lat, lng) {
+	geocoder = new google.maps.Geocoder();
+	var latlng = new google.maps.LatLng(-6.2295712, 106.759478);
+	var mapOptions = {
+		zoom: 12,
+		center: latlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+	};
+	map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	google.maps.event.addListener(map, "click", function () {
+		infowindow.close();
+	});
+}
+
+function geocodePosition(pos) {
+	geocoder.geocode(
+		{
+			latLng: pos,
+		},
+		function (responses) {
+			if (responses && responses.length > 0) {
+				marker.formatted_address = responses[0].formatted_address;
+			} else {
+				marker.formatted_address = "Cannot determine address at this location.";
+			}
+			infowindow.setContent(
+				marker.formatted_address +
+					"<br>coordinates: " +
+					marker.getPosition().toUrlValue(6)
+			);
+			// infowindow.open(map, marker);
+		}
+	);
+}
+
+function codeAddress(adress) {
+	var address = adress;
+	geocoder.geocode(
+		{
+			address: address,
+		},
+		function (results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				map.setCenter(results[0].geometry.location);
+				is_searched = true;
+				if (marker) {
+					marker.setMap(null);
+					if (infowindow) infowindow.close();
+				}
+				console.log(results[0].geometry.location)
+				marker = new google.maps.Marker({
+					map: map,
+					draggable: false,
+					position: results[0].geometry.location,
+				});
+				map.fitBounds(results[0].geometry.viewport);
+				google.maps.event.addListener(marker, "dragend", function () {
+					geocodePosition(marker.getPosition());
+				});
+			} else {
+				alert("Geocode was not successful for the following reason: " + status);
+			}
+		}
+	);
+}
+
+function deleteData(email, portofolio_id) {
+	Swal.fire({
+		title: "Apakah Anda Yakin?",
+		text: "Data akan dihapus secara permanen dan tidak dapat dikembalikan.",
+		icon: "question",
+		showCancelButton: true,
+		confirmButtonColor: "#d33",
+		cancelButtonColor: "#3085d6",
+		confirmButtonText: "Yes",
+	}).then((result) => {
+		if (result.value) {
+			$.ajax({
+				url: `${base_url}portofolio/delete`,
+				type: "POST",
+				data: {
+					email: email,
+					portofolio_id: portofolio_id,
+				},
+				dataType: "json",
+				success: function (data) {
+					response = jQuery.parseJSON(JSON.stringify(data));
+					if (response.is_success === true) {
+						Swal.fire({
+							title: response.message,
+							icon: "success",
+						});
+					} else {
+						Swal.fire({
+							title: "Warning",
+							text: response.message,
+							icon: "warning",
+						});
+					}
+					$("#datatables").DataTable().ajax.reload(null, false);
+				},
+				error: function (xhr, status, error) {
+					Swal.fire({ title: "Error", text: error, icon: "error" });
+					$("#datatables").DataTable().ajax.reload(null, false);
+				},
+			});
+		}
+	});
+}

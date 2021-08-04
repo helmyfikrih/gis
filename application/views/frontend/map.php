@@ -99,9 +99,9 @@
    								<li class="nav-item">
    									<a class="nav-link" data-toggle="tab" href="#direction">Direction</a>
    								</li>
-   								<!-- <li class="nav-item">
-   									<a class="nav-link" data-toggle="tab" href="#reviews">Reviews (2)</a>
-   								</li> -->
+   								<li class="nav-item">
+   									<a class="nav-link" data-toggle="tab" href="#portofolio">Portofolio <span id="portofolio_num"></span></a>
+   								</li>
    							</ul>
    							<!-- Tab panes -->
    							<div class="tab-content">
@@ -115,86 +115,9 @@
    										<div id="directions"></div>
    									</div>
    								</div>
-   								<div id="reviews" class="tab-pane fade">
-   									<div class="product_review">
-   										<h3>Reviews (2)</h3>
-   										<div class="commant-text row">
-   											<div class="col-lg-2 col-md-2 col-sm-4">
-   												<div class="profile">
-   													<img class="img-responsive" src="<?= base_url() ?>assets/frontend/images/it_service/client1.png" alt="#" />
-   												</div>
-   											</div>
-   											<div class="col-lg-10 col-md-10 col-sm-8">
-   												<h5>David</h5>
-   												<p>
-   													<span class="c_date">March 2, 2018</span> |
-   													<span><a rel="nofollow" class="comment-reply-link" href="#">Reply</a></span>
-   												</p>
-   												<span class="rating">
-   													<i class="fa fa-star" aria-hidden="true"></i>
-   													<i class="fa fa-star" aria-hidden="true"></i>
-   													<i class="fa fa-star" aria-hidden="true"></i>
-   													<i class="fa fa-star" aria-hidden="true"></i>
-   													<i class="fa fa-star-o" aria-hidden="true"></i>
-   												</span>
-   												<p class="msg">
-   													ThisThis book is a treatise on the theory of
-   													ethics, very popular during the Renaissance. The
-   													first line of Lorem Ipsum, “Lorem ipsum dolor
-   													sit amet..
-   												</p>
-   											</div>
-   										</div>
-   										<div class="commant-text row">
-   											<div class="col-lg-2 col-md-2 col-sm-4">
-   												<div class="profile">
-   													<img class="img-responsive" src="<?= base_url() ?>assets/frontend/images/it_service/client2.png" alt="#" />
-   												</div>
-   											</div>
-   											<div class="col-lg-10 col-md-10 col-sm-8">
-   												<h5>Jack</h5>
-   												<p>
-   													<span class="c_date">March 2, 2018</span> |
-   													<span><a rel="nofollow" class="comment-reply-link" href="#">Reply</a></span>
-   												</p>
-   												<span class="rating">
-   													<i class="fa fa-star" aria-hidden="true"></i>
-   													<i class="fa fa-star" aria-hidden="true"></i>
-   													<i class="fa fa-star" aria-hidden="true"></i>
-   													<i class="fa fa-star" aria-hidden="true"></i>
-   													<i class="fa fa-star-o" aria-hidden="true"></i>
-   												</span>
-   												<p class="msg">
-   													Nunc augue purus, posuere in accumsan sodales
-   													ac, euismod at est. Nunc faccumsan ermentum
-   													consectetur metus placerat mattis. Praesent
-   													mollis justo felis, accumsan faucibus mi maximus
-   													et. Nam hendrerit mauris id scelerisque
-   													placerat. Nam vitae imperdiet turpis
-   												</p>
-   											</div>
-   										</div>
+   								<div id="portofolio" class="tab-pane fade">
+   									<div class="product_review portofolio_list">
    										<div class="row">
-   											<div class="col-sm-12">
-   												<div class="full review_bt_section">
-   													<div class="float-right">
-   														<a class="btn sqaure_bt" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Leave a Review</a>
-   													</div>
-   												</div>
-   												<div class="full">
-   													<div id="collapseExample" class="full collapse commant_box">
-   														<form accept-charset="UTF-8" action="index.html" method="post">
-   															<input id="ratings-hidden" name="rating" type="hidden" />
-   															<textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." required=""></textarea>
-   															<div class="full_bt center">
-   																<button class="btn sqaure_bt" type="submit">
-   																	Save
-   																</button>
-   															</div>
-   														</form>
-   													</div>
-   												</div>
-   											</div>
    										</div>
    									</div>
    								</div>
