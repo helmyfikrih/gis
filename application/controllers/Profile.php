@@ -101,6 +101,9 @@ class Profile extends CI_Controller
         $data['data_user'] = array(
             'user_password' => md5($password),
         );
+		$data['cond'] = array(
+            'user_id' => $this->sessionData->user_id,
+        );
         if ($this->profile->update($data)) {
             $res = array(
                 'is_success' => true,
