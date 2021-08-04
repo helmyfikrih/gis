@@ -27,7 +27,7 @@ if (!function_exists('isExisEmail')) {
 	{
 		$ci = &get_instance();
 		$ci->load->database();
-		$q  = "SELECT * FROM gis_user WHERE 1=1 AND user_email = '${$email}'";
+		$q  = "SELECT * FROM gis_user WHERE 1=1 AND user_email = '$email'";
 		$res =  $ci->db->query($q)->result_array();
 		if (count($res) > 0) {
 			return true;

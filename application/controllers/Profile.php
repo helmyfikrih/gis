@@ -143,7 +143,7 @@ class Profile extends CI_Controller
         }
         // $email_current = $this->profile->getUserDetail($data)->result_array()[0]['user_username'];
         if ($email_old != $email) {
-            if (isExisEmail(trim($username))) {
+            if (isExisEmail(trim($email))) {
                 $res = array(
                     'is_success' => false,
                     'message' => "E-mail Tidak Tersedia",
@@ -159,6 +159,7 @@ class Profile extends CI_Controller
             "user_last_update_by" => $this->sessionData->user_id,
         );
         $data['data_user_detail'] = array(
+            "user_id" =>  $this->sessionData->user_id,
             "ud_full_name" => $full_name,
             "ud_gender" => $user_gender,
             "ud_address" => $address,
