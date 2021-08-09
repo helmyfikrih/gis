@@ -210,7 +210,7 @@
                                                    <div class="col-md-12">
                                                        <div class="form-group">
                                                            <input name="agreement" id="agreement" type="checkbox">
-                                                           <span class="crte-ac">Saya Bersedia Mengikuti Kebijakan dan Ketentuan Yang Berlaku.</span><span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span> </div>
+                                                           <span class="crte-ac">Saya Bersedia Mengikuti <a href="<?=base_url()?>assets\files\SYARAT_DAN_KEBIJAKAN_REI_DKI_JAKARTA.pdf" target="_blank" style="color: blue;"> Kebijakan dan Ketentuan </a> Yang Berlaku.</span><span class="red"><i class="fa fa-asterisk" style="color: red;" aria-hidden="true"></i></span> </div>
                                                    </div>
                                                </div>
                                            </fieldset>
